@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:00:18 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/30 21:16:10 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:39:34 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,36 @@
 
 # define ERROR -1
 
-# include "../libft/libft.h"
+# include "libft.h"
 # include <stdbool.h>
 # include <fcntl.h>
 # include <string.h>
 # include <stdio.h>
+# include "MLX42/MLX42.h"
+
+# define IMG_WH 60
+
+typedef struct s_map
+{
+	int		x;
+	int		y;
+	char	**data;
+}		t_map;
+
+typedef struct s_texture
+{
+	mlx_texture_t	    *texture[6];
+    struct mlx_image    *img[6];
+}	t_texture;
+
+typedef struct s_game
+{
+	int			width;
+	int			height;
+	mlx_t		*mlx;
+	t_map		*map;
+	t_texture	*textures;
+}		t_game;
+
 
 #endif

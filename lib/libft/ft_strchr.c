@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/23 10:05:56 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/29 16:18:28 by aaitelka         ###   ########.fr       */
+/*   Created: 2023/11/08 10:40:44 by aaitelka          #+#    #+#             */
+/*   Updated: 2024/05/03 18:25:07 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*join(char *s1, char *s2)
+char	*ft_strchr(const char *s, int c)
 {
-	char	*str;
-	size_t	i;
-	size_t	j;
+	int	i;
 
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
-		return (free(s1), NULL);
-	i = -1;
-	while (s1[++i])
-		str[i] = s1[i];
-	j = -1;
-	while (s2[++j])
-		str[i++] = s2[j];
-	str[i] = '\0';
-	free(s1);
-	return (str);
+	i = 0;
+	if (!s)
+		return (0);
+	if (c == '\0')
+		return ((char *)&s[ft_strlen(s)]);
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char) c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	return (0);
 }

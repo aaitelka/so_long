@@ -9,7 +9,7 @@
 
 # Linker output
 *.ilk
-*.map
+*.data
 *.exp
 
 # Precompiled Headers
@@ -53,4 +53,5 @@ dkms.conf
 
 #more
 so_long
-*.ber
+.vscode
+.idea

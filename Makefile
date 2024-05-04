@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/04/30 19:03:21 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/04 11:53:58 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,59 +14,58 @@
 GREEN	:=	\033[0;32m
 NC		:=	\033[0m
 
-LIBFT	:=	libft/libft.a
-MK_LBFT	:=	@$(MAKE) --no-print-directory -C libft
+LIBMLX	:= ./lib/MLX42
+
+LIBFT	:=	./lib/libft
 
 CC		:=	cc
 CFLAGS	:=	#-Wall -Wextra -Werror
 
 NAME	:=	so_long
-HEAD	:=	include/so_long.h
+HEADS	:=	-I ./include -I $(LIBFT) -I $(LIBMLX)/include
 
 BONUS	:= so_long_bonus
 B_HEAD	:= bonus/include/so_long_bonus.h
 
+LIBS	:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+
 SRCS	:=	so_long.c \
 
-OBJS	:=	$(SRCS:%.c=%.o)
+OBJS	:= $(SRCS:%.c=%.o)
 
 B_SRCS	:=	
 
 B_OBJS	:=	$(B_SRCS:%_bonus.c=%_bonus.o)
 
-all : 			$(NAME)
+all: libft libmlx $(NAME)
 
-%.o			:	%.c
-				$(CC) $(CFLAGS) -c $< -o $@
+libft:
+	@$(MAKE) --no-print-directory -C $(LIBFT)
 
-$(NAME): 		$(OBJS) $(LIBFT) $(HEAD)
-				@echo "$(GREEN)==========| Linking $(NAME) executable... |==========$(NC)"
-				$(CC) $(OBJS) $(LIBFT) -o $@
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADS)
 
+$(NAME) : $(OBJS)
+	@echo "$(GREEN)==========| Linking $(NAME) executable... |==========$(NC)"
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
-%_bonus.o : 	%_bonus.c
-				$(CC) $(CFLAGS) -c $< -o $@
+%_bonus.o : %_bonus.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus		: 	$(CHECKER)
+clean :
+	@echo "$(GREEN)==========| Cleaning... |==========...$(NC)"
+	$(RM) $(OBJS) $(B_OBJS)
+	$(RM) -rf $(LIBMLX)/build
+	@$(MAKE) -C $(LIBFT) clean
 
-$(BONUS)	: 	$(B_OBJS) $(LIBFT) $(B_HEAD)
-				@echo "$(GREEN)==========| Linking $(CHECKER) executable... |==========$(NC)"
-				$(CC) $(B_OBJS) $(LIBFT) -o $@
+fclean : clean
+	@echo "$(GREEN)==========| Full Cleaning... |==========$(NC)"
+	$(RM) $(NAME)
+	@$(MAKE) -C $(LIBFT) fclean
 
-$(LIBFT) :
-				@echo "$(GREEN)==========| Compiling libft... |==========$(NC)"
-				$(MK_LBFT)
-				@echo "$(GREEN)==========| Compiling libft bonus... |==========$(NC)"
-				$(MK_LBFT) bonus
+re : fclean all
 
-clean		:
-				@echo "$(GREEN)==========| Cleaning... |==========...$(NC)"
-				$(MK_LBFT) clean
-				$(RM) $(OBJS) $(B_OBJS)
-
-fclean :		clean
-				@echo "$(GREEN)==========| Full Cleaning... |==========$(NC)"
-				$(MK_LBFT) fclean
-				$(RM) $(NAME) $(CHECKER)
-
-re		:		fclean all
+.PHONY: all, clean, fclean, re, libmlx
