@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:00:18 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/04 18:39:34 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/05 00:07:19 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,12 @@ typedef struct s_game
 	t_texture	*textures;
 }		t_game;
 
+void    move_up(t_game *game);
+
+void    move_down(t_game *game);
+
+void    move_left(t_game *game);
+
+void    move_right(t_game *game);
 
 #endif

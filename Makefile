@@ -6,36 +6,37 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/04 11:53:58 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/04 23:57:27 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-GREEN	:=	\033[0;32m
-NC		:=	\033[0m
+GREEN	:= \033[0;32m
+NC		:= \033[0m
 
 LIBMLX	:= ./lib/MLX42
 
-LIBFT	:=	./lib/libft
+LIBFT	:= ./lib/libft
 
-CC		:=	cc
-CFLAGS	:=	#-Wall -Wextra -Werror
+CC		:= cc
+CFLAGS	:= #-Wall -Wextra -Werror
 
-NAME	:=	so_long
-HEADS	:=	-I ./include -I $(LIBFT) -I $(LIBMLX)/include
+NAME	:= so_long
+HEADS	:= -I ./include -I $(LIBFT) -I $(LIBMLX)/include
 
 BONUS	:= so_long_bonus
 B_HEAD	:= bonus/include/so_long_bonus.h
 
 LIBS	:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-SRCS	:=	so_long.c \
+SRCS	:= so_long.c \
+			src/moves.c \
 
 OBJS	:= $(SRCS:%.c=%.o)
 
 B_SRCS	:=	
 
-B_OBJS	:=	$(B_SRCS:%_bonus.c=%_bonus.o)
+B_OBJS	:= $(B_SRCS:%_bonus.c=%_bonus.o)
 
 all: libft libmlx $(NAME)
 
@@ -48,9 +49,9 @@ libmlx:
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADS)
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS) include/so_long.h
 	@echo "$(GREEN)==========| Linking $(NAME) executable... |==========$(NC)"
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBS) $(HEADS) -o $(NAME)
 
 %_bonus.o : %_bonus.c
 	$(CC) $(CFLAGS) -c $< -o $@

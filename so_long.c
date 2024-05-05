@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:01:49 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/04 20:11:56 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/05 12:52:58 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,73 +120,36 @@ void clear_map(char **map)
 
 void clear_images(t_game *game)
 {
-    int i;
+    int			i;
+	int			size;
+	t_texture	*texture;
 
-    i = 6;
-    while (game->textures->img[i])
+    i = 0;
+	texture = game->textures;
+	size = sizeof(texture->img) / sizeof(texture->img[0]);
+    while (i < size)
     {
+		mlx_delete_texture(game->textures->texture[i]);
         mlx_delete_image(game->mlx, game->textures->img[i]);
-        i--;
+        i++;
     }
-}
-
-
-void move_up(t_game *game)
-{
-    if (game->map->data[game->textures->img[2]->instances[0].y / IMG_WH][game->textures->img[2]->instances[0].x / IMG_WH] == 'C')
-    {
-        mlx_image_to_window(game->mlx, game->textures->img[0],
-                            game->textures->img[2]->instances[0].x,
-                            game->textures->img[2]->instances[0].y);
-    }
-    game->textures->img[2]->instances[0].y -= IMG_WH;
-
 }
 
 void	key_listener(mlx_key_data_t keydata, void *param)
 {
-	t_game              *game;
+	t_game  *game;
 
 	game = (t_game *)param;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-	{
         move_up(game);
-	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-	{
-//        if (game->map->data[game->textures->img[2]->instances[0].y / IMG_WH][game->textures->img[2]->instances[0].x / IMG_WH] == 'P'
-//        || game->map->data[game->textures->img[2]->instances[0].y / IMG_WH][game->textures->img[2]->instances[0].x / IMG_WH] == '0')
-            game->textures->img[2]->instances[0].x -= IMG_WH;
-        if (game->map->data[game->textures->img[2]->instances[0].y / IMG_WH][game->textures->img[2]->instances[0].x / IMG_WH] == 'C') {
-            mlx_image_to_window(game->mlx, game->textures->img[0],
-                                game->textures->img[2]->instances[0].x,
-                                game->textures->img[2]->instances[0].y);
-        }
-	}
+        move_left(game);
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-	{
-//        if (game->map->data[game->textures->img[2]->instances[0].y / IMG_WH][game->textures->img[2]->instances[0].x / IMG_WH] == 'P'
-//            || game->map->data[game->textures->img[2]->instances[0].y / IMG_WH][game->textures->img[2]->instances[0].x / IMG_WH] == '0')
-            game->textures->img[2]->instances[0].y += IMG_WH;
-        if (game->map->data[game->textures->img[2]->instances[0].y / IMG_WH][game->textures->img[2]->instances[0].x / IMG_WH] == 'C') {
-            mlx_image_to_window(game->mlx, game->textures->img[0],
-                                game->textures->img[2]->instances[0].x,
-                                game->textures->img[2]->instances[0].y);
-        }
-	}
+        move_down(game);
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-	{
-//        if (game->map->data[game->textures->img[2]->instances[0].y / IMG_WH][game->textures->img[2]->instances[0].x / IMG_WH] == 'P'
-//            || game->map->data[game->textures->img[2]->instances[0].y / IMG_WH][game->textures->img[2]->instances[0].x / IMG_WH] == '0')
-            game->textures->img[2]->instances[0].x += IMG_WH;
-        if (game->map->data[game->textures->img[2]->instances[0].y / IMG_WH][game->textures->img[2]->instances[0].x / IMG_WH] == 'C') {
-            mlx_image_to_window(game->mlx, game->textures->img[0],
-                                game->textures->img[2]->instances[0].x,
-                                game->textures->img[2]->instances[0].y);
-        }
-	}
+        move_right(game);
 }
 
 void    run(t_game *game)
