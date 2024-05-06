@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:01:49 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/06 18:39:56 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:25:33 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,15 @@ void	key_listener(mlx_key_data_t keydata, void *param)
 	game = (t_game *)param;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_W) || mlx_is_key_down(game->mlx, MLX_KEY_UP))
-        move_up(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_A) || mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-        move_left(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_S) || mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
-        move_down(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_D) || mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-        move_right(game);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+        (move_up(game), print_moves(game));
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+        (move_left(game), print_moves(game));
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+        (move_down(game), print_moves(game));
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+        (move_right(game), print_moves(game));
 }
-
 
 // void delay(int sec)
 // {
@@ -69,7 +68,6 @@ void    run(t_game *game)
     int x = 0, y = 0;
     int i = 0;
 
-		printf("4444444\n");
     while (game->map->data[i])
     {
         int j = 0;
@@ -137,6 +135,7 @@ bool	init_game(t_game **game, char *av[], char *paths[])
 	(*game)->map = init_map(av);
 	(*game)->width = (*game)->map->x;
 	(*game)->height = (*game)->map->y;
+	(*game)->moves = 0;
 	(*game)->mlx = mlx_init((*game)->width * IMG_WH, (*game)->height * IMG_WH, "SO_LONG", false);
 	(*game)->textures = init_textures(*game, paths);
 	return (true);
@@ -148,11 +147,11 @@ bool	init_game(t_game **game, char *av[], char *paths[])
 // 	t_game *game;
 
 // 	game = (t_game *)param;
-// 	// mlx_image_to_window(game->mlx, game->textures->img[0], game->textures->img[COIN]->instances[0].x, game->textures->img[COIN]->instances[0].y);
-// 	// mlx_image_to_window(game->mlx, game->textures->img[1], game->textures->img[COIN]->instances[0].x, game->textures->img[COIN]->instances[0].y);
-// 	// mlx_image_to_window(game->mlx, game->textures->img[2], game->textures->img[COIN]->instances[0].x, game->textures->img[COIN]->instances[0].y);
-// 	printf("==\n");
+	
+// 	printf("%d\n", game->moves);
 // }
+
+
 
 int	main(int ac, char *av[])
 {

@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:00:18 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/06 18:40:05 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:26:53 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_game
 {
 	int			width;
 	int			height;
+	int			moves;
+	int			coins;
 	mlx_t		*mlx;
 	t_map		*map;
 	t_texture	*textures;
@@ -57,6 +59,8 @@ typedef struct s_game
 /**
  *	MOVES
 */
+
+void	print_moves(t_game *game);
 
 void    move_up(t_game *game);
 
