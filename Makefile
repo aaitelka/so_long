@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/04 23:57:27 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/06 18:46:20 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBMLX	:= ./lib/MLX42
 
 LIBFT	:= ./lib/libft
 
-CC		:= cc
+CC		:= cc #-g -fsanitize=address
 CFLAGS	:= #-Wall -Wextra -Werror
 
 NAME	:= so_long
@@ -29,8 +29,11 @@ B_HEAD	:= bonus/include/so_long_bonus.h
 
 LIBS	:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-SRCS	:= so_long.c \
+SRCS	:=	main.c \
+			src/map.c \
 			src/moves.c \
+			src/parsing.c \
+			src/cleaner.c \
 
 OBJS	:= $(SRCS:%.c=%.o)
 

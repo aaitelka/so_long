@@ -52,6 +52,9 @@ Mkfile.old
 dkms.conf
 
 #more
-so_long
+.DS_Store
 .vscode
 .idea
+.png
+so_long
+textures

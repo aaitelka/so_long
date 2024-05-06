@@ -6,14 +6,12 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:00:18 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/05 00:07:19 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:40:05 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-
-# define ERROR -1
 
 # include "libft.h"
 # include <stdbool.h>
@@ -22,7 +20,17 @@
 # include <stdio.h>
 # include "MLX42/MLX42.h"
 
+# define ERROR -1
+# define EXT ".ber"
+
 # define IMG_WH 60
+
+# define GROUND 0
+# define WALL 1
+# define PLAYER 2
+# define COIN 3
+# define DOOR 4
+# define ENEMY 5
 
 typedef struct s_map
 {
@@ -46,6 +54,10 @@ typedef struct s_game
 	t_texture	*textures;
 }		t_game;
 
+/**
+ *	MOVES
+*/
+
 void    move_up(t_game *game);
 
 void    move_down(t_game *game);
@@ -53,5 +65,17 @@ void    move_down(t_game *game);
 void    move_left(t_game *game);
 
 void    move_right(t_game *game);
+
+/**
+ *	MAP
+*/
+
+char	**load_map(char *av[]);
+
+/**
+ *	CLEANER
+*/
+
+void	destroy(t_game *game);
 
 #endif

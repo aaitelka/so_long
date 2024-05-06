@@ -1,44 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:01:49 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/05 12:52:58 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:39:56 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 #include <stdbool.h>
-
-#define EXT ".ber"
-
-int ft_strcmp(const char *s1, const char *s2)
-{
-    while (*s1 && (*s1 == *s2))
-    {
-        s1++;
-        s2++;
-    }
-    return ((unsigned char)*s1 - (unsigned char)*s2);
-}
-
-char *get_file_name(char *agrv[])
-{
-	return (agrv[1]);
-}
-
-bool is_valid_ext(char *filename)
-{
-    char *ext;
-
-    ext = ft_strrchr(filename, '.');
-    if (!ft_strcmp(ext, EXT))
-        return (true);
-    return (false);
-}
+#include <time.h>
 
 bool is_double(char *map, char c)
 {
@@ -54,85 +28,11 @@ bool is_double(char *map, char c)
     return (false);
 }
 
-char *read_map(char *filename)
-{
-	int		fd;
-	char	*line;
-	char	*temp;
-	char	*map;
 
-	map = NULL;
-	fd = open(filename, O_RDONLY);
-	if (fd == ERROR)
-		return (NULL);
-    while (true)
-    {
-		line = get_next_line(fd);
-        if (!line)
-			break;
-		temp = ft_strjoin(map, line);
-		free(map);
-		map = temp;
-		free(line);
-	}
-	close(fd);
-	return (map);
-}
-
-int get_rgba(int r, int g, int b, int a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-}
-
-#define BPP sizeof(int32_t)
-char	**load_map(char *av[])
-{
-	char	*filename;
-    char	*map;
-    char	**map2d;
-
-	filename = get_file_name(av);
-    if (!is_valid_ext(filename))
-		printf("invalid\n");
-	map  = read_map(filename);
-	map2d = ft_split(map, '\n');
-	free(map);
-	return (map2d);
-}
 
 void l()
 {
     system("leaks so_long");
-}
-
-void clear_map(char **map)
-{
-    int i;
-
-    i = 0;
-    while (map[i])
-    {
-        free(map[i]);
-        i++;
-    }
-    free(map);
-}
-
-void clear_images(t_game *game)
-{
-    int			i;
-	int			size;
-	t_texture	*texture;
-
-    i = 0;
-	texture = game->textures;
-	size = sizeof(texture->img) / sizeof(texture->img[0]);
-    while (i < size)
-    {
-		mlx_delete_texture(game->textures->texture[i]);
-        mlx_delete_image(game->mlx, game->textures->img[i]);
-        i++;
-    }
 }
 
 void	key_listener(mlx_key_data_t keydata, void *param)
@@ -142,21 +42,34 @@ void	key_listener(mlx_key_data_t keydata, void *param)
 	game = (t_game *)param;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_W) || mlx_is_key_down(game->mlx, MLX_KEY_UP))
         move_up(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_A) || mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
         move_left(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_S) || mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
         move_down(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D) || mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
         move_right(game);
 }
+
+
+// void delay(int sec)
+// {
+//     int		millis;
+//     clock_t	time;
+	
+// 	millis = (sec * 1000) * 500;
+// 	time = clock();
+//     while (clock() < (time + millis))
+//         ;
+// }
 
 void    run(t_game *game)
 {
     int x = 0, y = 0;
     int i = 0;
 
+		printf("4444444\n");
     while (game->map->data[i])
     {
         int j = 0;
@@ -169,7 +82,7 @@ void    run(t_game *game)
             else if (game->map->data[i][j] == 'P')
                 mlx_image_to_window(game->mlx, game->textures->img[2], x, y);
             else if (game->map->data[i][j] == 'C')
-                mlx_image_to_window(game->mlx, game->textures->img[3], x, y);
+        		mlx_image_to_window(game->mlx, game->textures->img[3], x, y);
             else if (game->map->data[i][j] == 'E')
                 mlx_image_to_window(game->mlx, game->textures->img[4], x, y);
             else if (game->map->data[i][j] == 'X')
@@ -181,16 +94,6 @@ void    run(t_game *game)
         y += IMG_WH;
         i++;
     }
-}
-
-void	destroy_game(t_game *game)
-{
-	clear_map(game->map->data);
-    clear_images(game);
-    mlx_terminate(game->mlx);
-	free(game->textures);
-	free(game->map);
-	free(game);
 }
 
 t_map	*init_map(char *av[])
@@ -222,6 +125,7 @@ t_texture	*init_textures(t_game *game, char *paths[])
         texture->img[i] = mlx_texture_to_image(game->mlx, texture->texture[i]);
 		i++;
 	}
+	
 	return (texture);
 }
 
@@ -238,6 +142,18 @@ bool	init_game(t_game **game, char *av[], char *paths[])
 	return (true);
 }
 
+
+// void animate_coin(void *param)
+// {
+// 	t_game *game;
+
+// 	game = (t_game *)param;
+// 	// mlx_image_to_window(game->mlx, game->textures->img[0], game->textures->img[COIN]->instances[0].x, game->textures->img[COIN]->instances[0].y);
+// 	// mlx_image_to_window(game->mlx, game->textures->img[1], game->textures->img[COIN]->instances[0].x, game->textures->img[COIN]->instances[0].y);
+// 	// mlx_image_to_window(game->mlx, game->textures->img[2], game->textures->img[COIN]->instances[0].x, game->textures->img[COIN]->instances[0].y);
+// 	printf("==\n");
+// }
+
 int	main(int ac, char *av[])
 {
 	atexit(l);
@@ -253,11 +169,24 @@ int	main(int ac, char *av[])
 		NULL
 	};
 
+	char *coins[] = {
+		"textures/coin_1.png",
+		"textures/coin_2.png",
+		"textures/coin_3.png",
+		"textures/coin_4.png",
+		"textures/coin_5.png",
+		"textures/coin_6.png",
+		"textures/coin_7.png",
+		"textures/coin_8.png",
+		"textures/coin_9.png",
+		"textures/coin_10.png",
+		NULL
+	};
+	
 	if (ac == 2)
     {
 		init_game(&game, av, paths);
 		run(game);
-		mlx_set_window_pos(game->mlx, 0, 0);
         mlx_key_hook(game->mlx, key_listener, game);
         mlx_loop(game->mlx);
     }
@@ -265,6 +194,6 @@ int	main(int ac, char *av[])
     {
         printf("Please add data!\n");
     }
-    destroy_game(game);
+    destroy(game);
     return (EXIT_SUCCESS);
 }
