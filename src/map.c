@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:34:16 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/06 18:25:15 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:35:15 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ bool	is_valid_ext(char *filename)
 	if (!ft_strcmp(ext, EXT))
 		return (true);
 	return (false);
-}
-
-char	*get_file_name(char *agrv[])
-{
-	return (agrv[1]);
 }
 
 char	*read_map(char *filename)
@@ -62,16 +57,56 @@ char	*read_map(char *filename)
 	return (map);
 }
 
-char	**load_map(char *av[])
+int	is_double_or_null(char *map)
 {
-	char	*filename;
+	int	i;
+	int	p;
+	int	e;
+
+	i = 0;
+	p = 0;
+	e = 0;
+	while (map[i])
+    {
+        if (map[i] == 'P')
+			p++;
+		else if (map[i] == 'E')
+			e++;
+		i++;
+    }
+	if (p != 1)
+    	return (PLAYER);
+	else if (e != 1)
+		return (DOOR);
+    return (0);
+}
+
+void check_map(char *map)
+{
+	if (is_double_or_null(map) == PLAYER)
+		ft_printf("Error : map has double player.\n");
+	else if (is_double_or_null(map) == DOOR)
+		ft_printf("Error : map has double exit.\n");
+	else
+		return ;
+	free(map);
+	exit(EXIT_FAILURE);
+}
+
+char	**load_map(char *filename)
+{
 	char	*map;
 	char	**map2d;
 
-	filename = get_file_name(av);
 	if (!is_valid_ext(filename))
+	{
 		ft_putstr_fd("Error : invalid extention, should use [.ber] map file.\n", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
 	map = read_map(filename);
+	if (!map)
+		return (NULL);
+	check_map(map);
 	map2d = ft_split(map, '\n');
 	free(map);
 	return (map2d);

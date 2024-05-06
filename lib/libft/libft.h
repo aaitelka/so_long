@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 23:18:09 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/30 21:12:42 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:29:01 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <stdarg.h>
 
 int		ft_isalpha(int c);
 
@@ -116,5 +117,15 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*get_next_line(int fd);
 
 char	*join(char *s1, char *s2);
+
+int		ft_printf(const char *format, ...);
+
+int		put_str(char *s);
+
+int		put_nbr(long nbr);
+
+int		put_char(char c);
+
+int		put_hex(unsigned long decimal, char placeholder);
 
 #endif

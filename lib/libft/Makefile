@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 23:45:40 by aaitelka          #+#    #+#              #
-#    Updated: 2024/04/29 16:18:02 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/06 20:29:43 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,11 @@ SRCS	:=	ft_isalpha.c \
 			ft_putstr_fd.c \
 			ft_putendl_fd.c \
 			ft_putnbr_fd.c \
+			ft_printf.c \
+			src/put_nbr.c \
+			src/put_char.c \
+			src/put_str.c \
+			src/put_hex.c \
 			get_next_line.c \
 			get_next_line_utils.c 
 BONUS	:=	ft_lstnew_bonus.c \

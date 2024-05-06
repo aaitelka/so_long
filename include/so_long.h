@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:00:18 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/06 19:26:53 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:18:23 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void    move_right(t_game *game);
  *	MAP
 */
 
-char	**load_map(char *av[]);
+char	**load_map(char *filename);
 
 /**
  *	CLEANER
