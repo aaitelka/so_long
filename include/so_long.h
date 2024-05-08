@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:00:18 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/06 20:18:23 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/07 01:51:19 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <stdio.h>
 # include "MLX42/MLX42.h"
 
-# define ERROR -1
 # define EXT ".ber"
 
+# define ERROR -1
 # define IMG_WH 60
 
 # define GROUND 0
@@ -51,6 +51,9 @@ typedef struct s_game
 	int			height;
 	int			moves;
 	int			coins;
+	char		*keys;
+	int32_t		row;
+	int32_t		col;
 	mlx_t		*mlx;
 	t_map		*map;
 	t_texture	*textures;

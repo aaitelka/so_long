@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 23:44:52 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/06 21:26:42 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/07 01:45:40 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	move_up(t_game *game)
 	player = game->textures->img[PLAYER];
 	x = player->instances[0].x / IMG_WH;
 	y = (player->instances[0].y - IMG_WH) / IMG_WH;
-	game->map->data[player->instances[0].y / IMG_WH][player->instances[0].x / IMG_WH] = '0';
-	if (game->map->data[y][x] == '0' || game->map->data[y][x] == 'C')
+	game->map->data[player->instances[0].y / IMG_WH][player->instances[0].x / IMG_WH] = game->keys[GROUND];
+	if (game->map->data[y][x] == game->keys[GROUND] || game->map->data[y][x] == game->keys[3])
 	{
-		mlx_image_to_window(game->mlx, texture->img[0], player->instances[0].x, player->instances[0].y);
+		mlx_image_to_window(game->mlx, texture->img[GROUND], player->instances[0].x, player->instances[0].y);
 		player->instances[0].y -= IMG_WH;
 		mlx_image_to_window(game->mlx, player, player->instances[0].x, player->instances[0].y);
 		ft_printf("Player moves : %d\n", ++(game->moves));
 	}
-	else if (game->map->data[y][x] == 'E')
+	else if (game->map->data[y][x] == game->keys[DOOR])
 	{
 		ft_printf("Player moves : %d\n", ++(game->moves));
 		mlx_close_window(game->mlx);

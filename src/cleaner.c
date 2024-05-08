@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:31:14 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/06 19:16:54 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:05:22 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void	destroy(t_game *game)
 	mlx_terminate(game->mlx);
 	free(game->textures);
 	free(game->map);
-	free(game);
+	// free(game);
 }

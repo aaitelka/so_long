@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 23:45:40 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/06 20:29:43 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/07 00:49:20 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS	:=	ft_isalpha.c \
 			ft_tolower.c \
 			ft_strchr.c \
 			ft_strrchr.c \
+			ft_strcmp.c \
 			ft_strncmp.c \
 			ft_strlcpy.c \
 			ft_memset.c \

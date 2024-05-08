@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:01:49 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/06 21:20:48 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/08 01:17:20 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,28 @@ void	key_listener(mlx_key_data_t keydata, void *param)
 
 void    run(t_game *game)
 {
-    int x = 0, y = 0;
-    int i = 0;
-
-    while (game->map->data[i])
-    {
-        int j = 0;
+	int	i;
+	int	j;
+	
+	i = 0;
+	while (game->map->data[i])
+	{
+        j = 0;
         while (game->map->data[i][j])
         {
-            if (game->map->data[i][j] == '0')
-                mlx_image_to_window(game->mlx, game->textures->img[0], x, y);
-            else if (game->map->data[i][j] == '1')
-                mlx_image_to_window(game->mlx, game->textures->img[1], x, y);
-            else if (game->map->data[i][j] == 'P')
-                mlx_image_to_window(game->mlx, game->textures->img[2], x, y);
-            else if (game->map->data[i][j] == 'C')
-        		mlx_image_to_window(game->mlx, game->textures->img[3], x, y);
-            else if (game->map->data[i][j] == 'E')
-                mlx_image_to_window(game->mlx, game->textures->img[4], x, y);
-            else if (game->map->data[i][j] == 'X')
-                mlx_image_to_window(game->mlx, game->textures->img[5], x, y);
-            x += IMG_WH;
-            j++;
+			int l = 0;
+			while (game->keys[l])
+			{
+				if (game->map->data[i][j] == game->keys[l])
+					mlx_image_to_window(game->mlx, game->textures->img[l], game->row, game->col);
+				l++;
+			}
+            game->row += IMG_WH;
+			j++;
         }
-        x = 0;
-        y += IMG_WH;
-        i++;
+        game->row = 0;
+		game->col += IMG_WH;
+		i++;
     }
 }
 
@@ -111,7 +107,6 @@ t_texture	*init_textures(t_game *game, char *paths[])
         texture->img[i] = mlx_texture_to_image(game->mlx, texture->texture[i]);
 		i++;
 	}
-	
 	return (texture);
 }
 
@@ -129,6 +124,9 @@ bool	init_game(t_game **game, char *av[], char *paths[])
 	(*game)->width = (*game)->map->x;
 	(*game)->height = (*game)->map->y;
 	(*game)->moves = 0;
+	(*game)->keys = "01PCE";
+	(*game)->row = 0;
+	(*game)->col = 0;
 	(*game)->mlx = mlx_init((*game)->width * IMG_WH, (*game)->height * IMG_WH, "SO_LONG", false);
 	(*game)->textures = init_textures(*game, paths);
 	return (true);
@@ -184,9 +182,13 @@ int	main(int ac, char *av[])
         mlx_loop(game->mlx);
     }
     else
-    {
-        printf("Please add data!\n");
-    }
+        ft_printf("Please add data!\n");
     destroy(game);
     return (EXIT_SUCCESS);
 }
+
+
+//TODO check map is rectangulare
+//TODO check images and map is exist's
+//TODO check map if has empty line
+//TODO check map has unknown character

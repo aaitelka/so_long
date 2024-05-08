@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-
 char	*read_line(char *buffer)
 {
 	int		i;
@@ -51,10 +50,7 @@ char	*save_rem(char *line)
 	while (line[i] && line[i] != '\n')
 		i++;
 	if (!line[i])
-	{
-		free(line);
-		return (NULL);
-	}
+		return (free(line), NULL);
 	str = (char *)malloc(sizeof(char) * (ft_strlen(line) - i + 1));
 	if (!str)
 		return (NULL);
@@ -80,10 +76,7 @@ char	*read_at_nl(int fd, char *line)
 	{
 		rd_bytes = read(fd, buff, BUFFER_SIZE);
 		if (rd_bytes == -1)
-		{
-			free(buff);
-			return (NULL);
-		}
+			return (free(buff), NULL);
 		buff[rd_bytes] = '\0';
 		line = join(line, buff);
 	}
