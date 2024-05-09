@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:01:49 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/08 01:17:20 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:39:31 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,6 @@ void l()
 {
     system("leaks so_long");
 }
-
-void	key_listener(mlx_key_data_t keydata, void *param)
-{
-	t_game  *game;
-
-	game = (t_game *)param;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(game->mlx);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-        move_up(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-        move_left(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-        move_down(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-        move_right(game);
-}
-
-// void delay(int sec)
-// {
-//     int		millis;
-//     clock_t	time;
-	
-// 	millis = (sec * 1000) * 500;
-// 	time = clock();
-//     while (clock() < (time + millis))
-//         ;
-// }
 
 void    run(t_game *game)
 {
@@ -63,6 +35,8 @@ void    run(t_game *game)
 			{
 				if (game->map->data[i][j] == game->keys[l])
 					mlx_image_to_window(game->mlx, game->textures->img[l], game->row, game->col);
+				else if (game->map->data[i][j] == 'P')
+					mlx_image_to_window(game->mlx, game->player->img[0], game->row, game->col);
 				l++;
 			}
             game->row += IMG_WH;
@@ -77,15 +51,18 @@ void    run(t_game *game)
 t_map	*init_map(char *filename)
 {
 	t_map	*map;
-	char	**data;
+	char	**map2d;
 	
-	data = load_map(filename);
-	if (!data)
+	map2d = load_map(filename);
+	if (!map2d)
 		return (NULL);
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
-	map->data = data;
+	map->data = map2d;
+	map->coins = count_collectibles(map2d);
+	map->px = 0;
+	map->py = 0;
 	map->x = (int) ft_strlen(map->data[0]);
 	map->y = 0;
 	while (map->data[map->y])
@@ -110,13 +87,40 @@ t_texture	*init_textures(t_game *game, char *paths[])
 	return (texture);
 }
 
-bool	init_game(t_game **game, char *av[], char *paths[])
+void print_map(char *map[])
+{
+	int i = 0;
+	while (map[i])
+	{
+		int j = 0;
+		while (map[i][j])
+		{
+			printf("%c", map[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+	
+}
+
+bool	init_game(t_game **game, char *av[], char *paths[], char *player[])
 {
 	t_map	*map;
 
 	map = init_map(av[1]);
 	if (!map)
 		return (false);
+	get_player_position(map);
+	flood_fill(map->data, map->py, map->px);
+	if (!should_stay(map->data, map->y))
+	{
+		ft_printf("Error : one or more of the collectibles will not be accessible.\n");
+		exit(EXIT_FAILURE);
+	}
+	clear_map(map->data);
+	free(map);
+	map = init_map(av[1]);
 	*game = malloc(sizeof(t_game));
 	if (!*game)
 		return (false);
@@ -124,25 +128,14 @@ bool	init_game(t_game **game, char *av[], char *paths[])
 	(*game)->width = (*game)->map->x;
 	(*game)->height = (*game)->map->y;
 	(*game)->moves = 0;
-	(*game)->keys = "01PCE";
+	(*game)->keys = "01CE";
 	(*game)->row = 0;
 	(*game)->col = 0;
 	(*game)->mlx = mlx_init((*game)->width * IMG_WH, (*game)->height * IMG_WH, "SO_LONG", false);
 	(*game)->textures = init_textures(*game, paths);
+	(*game)->player = init_textures(*game, player);
 	return (true);
 }
-
-
-// void animate_coin(void *param)
-// {
-// 	t_game *game;
-
-// 	game = (t_game *)param;
-	
-// 	printf("%d\n", game->moves);
-// }
-
-
 
 int	main(int ac, char *av[])
 {
@@ -152,13 +145,26 @@ int	main(int ac, char *av[])
 	char *paths[] = {
 		"textures/ground.png",
 		"textures/wall.png",
-		"textures/player.png",
-		"textures/coin.png",
+		"textures/ball.png",
 		"textures/door.png",
-		"textures/enemy.png",
 		NULL
 	};
 
+	char *player[] = {
+		"textures/player_front.png",
+		"textures/player_back.png",
+		"textures/player_left.png",
+		"textures/player_right.png",
+		NULL
+	};
+
+
+	int	size;
+
+	size = (sizeof(paths) / sizeof(paths[0])) - 1;
+	check_textures(paths, size);
+	check_textures(player, size);
+	
 	char *coins[] = {
 		"textures/coin_1.png",
 		"textures/coin_2.png",
@@ -175,20 +181,29 @@ int	main(int ac, char *av[])
 	
 	if (ac == 2)
     {
-		if (!init_game(&game, av, paths))
-			destroy(game);
+		if (!init_game(&game, av, paths, player))
+			exit(EXIT_FAILURE);
+		
+		int32_t width;
+		int32_t height;
+		mlx_get_monitor_size(0, &width, &height);
+		// if (game->map->x )
+		if (game->map->x * IMG_WH > width || game->map->y * IMG_WH > height)
+		{
+			printf("Window size bigger than monitor size\n");
+			exit(EXIT_FAILURE);
+		}
+		
 		run(game);
-        mlx_key_hook(game->mlx, key_listener, game);
+		// char *moves = ft_itoa(game->moves);
+		// mlx_put_string(game->mlx, moves, 30, 30);
+        mlx_key_hook(game->mlx, key_events, game);
         mlx_loop(game->mlx);
+		mlx_close_window(game->mlx);
     }
     else
         ft_printf("Please add data!\n");
+	// free(coins);
     destroy(game);
     return (EXIT_SUCCESS);
 }
-
-
-//TODO check map is rectangulare
-//TODO check images and map is exist's
-//TODO check map if has empty line
-//TODO check map has unknown character
