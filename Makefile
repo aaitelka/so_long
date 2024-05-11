@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/09 20:29:22 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/11 18:35:18 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBMLX	:= ./lib/MLX42
 
 LIBFT	:= ./lib/libft
 
-CC		:= cc -g -fsanitize=address
+CC		:= cc -g #-fsanitize=address
 CFLAGS	:= #-Wall -Wextra -Werror
 
 NAME	:= so_long
@@ -32,8 +32,12 @@ LIBS	:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER
 SRCS	:=	main.c \
 			src/map.c \
 			src/moves.c \
+			src/assert.c \
+			src/window.c \
+			src/texture.c \
 			src/parsing.c \
 			src/cleaner.c \
+			src/game_init.c \
 			src/mlx_utils.c \
 			src/map_utils.c \
 
@@ -51,10 +55,10 @@ libft:
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 	
-%.o: %.c
+%.o: %.c include/so_long.h
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADS)
 
-$(NAME) : $(OBJS) include/so_long.h
+$(NAME) : $(OBJS)
 	@echo "$(GREEN)==========| Linking $(NAME) executable... |==========$(NC)"
 	@$(CC) $(OBJS) $(LIBS) $(HEADS) -o $(NAME)
 

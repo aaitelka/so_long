@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 18:25:46 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/11 12:53:06 by aaitelka         ###   ########.fr       */
+/*   Created: 2024/05/10 15:45:15 by aaitelka          #+#    #+#             */
+/*   Updated: 2024/05/11 20:00:15 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "so_long.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+t_path	init_paths()
 {
-	char	*str;
-	size_t	s1len;
-	size_t	dstlen;
+	t_path	paths;
 
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (NULL);
-	s1len = ft_strlen(s1);
-	dstlen = s1len + ft_strlen(s2);
-	str = malloc(dstlen + 1);
-	if (!str)
-		return ((void *)0);
-	ft_strlcpy(str, s1, s1len + 1);
-	ft_strlcat(str, s2, dstlen + 1);
-	return (str);
+	paths.uris[I_GROUND] = TEXTURE_GROUND;
+	paths.uris[I_WALL] = TEXTURE_WALL;
+	paths.uris[I_COIN] = TEXTURE_COIN;
+	paths.uris[I_DOOR] = TEXTURE_DOOR;
+	paths.uris[I_PF] = PLAYER_FRONT;
+	paths.uris[I_PB] = PLAYER_BACK;
+	paths.uris[I_PL] = PLAYER_LEFT;
+	paths.uris[I_PR] = PLAYER_RIGHT;
+	paths.uris[8] = NULL;
+	return (paths);
 }

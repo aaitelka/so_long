@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:31:14 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/09 18:50:32 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:55:34 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,35 @@ void	clear_map(char **map)
 	free(map);
 }
 
-void	clear_images(mlx_t *mlx, t_texture *tex)
+void	clear_textures(t_texture tex)
 {
 	int	i;
 	int	size;
 
 	i = 0;
-	size = sizeof(tex->img) / sizeof(tex->img[0]);
+	size = SIZE(tex.texture);
 	while (i < size)
-	{
-		mlx_delete_image(mlx, tex->img[i]);
-		mlx_delete_texture(tex->texture[i]);
-		i++;
-	}
-	free(tex);
+		mlx_delete_texture(tex.texture[i++]);
 }
 
-void	destroy(t_game *game)
+void	clear_all(mlx_t *mlx, t_texture tex)
 {
-	clear_map(game->map->data);
-	clear_images(game->mlx, game->textures);
-	clear_images(game->mlx, game->player);
-	mlx_terminate(game->mlx);
-	free(game->map);
-	free(game);
+	int	i;
+	int	size;
+
+	i = 0;
+	size = sizeof(tex.img) / sizeof(tex.img[0]);
+	while (i < size)
+	{
+		mlx_delete_image(mlx, tex.img[i]);
+		mlx_delete_texture(tex.texture[i]);
+		i++;
+	}
+}
+
+void	destroy(t_game game)
+{
+	clear_map(game.map.data);
+	clear_all(game.mlx, game.tex);
+	mlx_terminate(game.mlx);
 }

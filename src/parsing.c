@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:29:13 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/09 20:21:33 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:56:26 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,56 +22,71 @@ bool	is_valid_ext(char *filename)
 	return (false);
 }
 
-int	size_2dmap(char *map2d[])
+bool	valid_char(char c)
 {
-	int	size;
-
-	size = 0;
-	while (map2d[size])
-		size++;
-	return (size);
+	return ((c == '0' || c == '1' || c == 'P' || c == 'C' || c == 'E' || c == '\n'));
 }
 
-bool	is_valid_wall(char *map2d[])
+int	is_double_or_null(char *map)
 {
 	int	i;
-	int	j;
-	int	size;
+	int	p;
+	int	e;
+	int	c;
 	int	len;
+	int	lenght;
 
-	if (!*map2d)
-		return (false);
 	i = 0;
-	size = size_2dmap(map2d);
-	while (map2d[i])
+	p = 0;
+	e = 0;
+	c = 0;
+	len = 0;
+	lenght = ft_strchr(map, '\n') - map;
+	while (map[i])
 	{
-		j = 0;
-		while (map2d[i][j])
+		if (!valid_char(map[i]))
+			return (ERROR);
+		if (map[i] != '\n')
+			len++;
+		if (map[i] == '\n' || map[i + 1] == '\0')
 		{
-			len = ft_strlen(map2d[i]);
-			if (map2d[0][j] != '1' || map2d[size - 1][j] != '1')
-				return (false);
-			else if (map2d[i][0] != '1' || map2d[i][len - 1] != '1')
-				return (false);
-			j++;
+			if (lenght != len)
+				return (11);
+			len = 0;
 		}
+		if (map[0] == '\n' || (map[i] == '\n' && map[i + 1] == '\n'))
+			return (10);
+		if (map[i] == 'P')
+			p++;
+		else if (map[i] == 'E')
+			e++;
+		else if (map[i] == 'C')
+			c++;
 		i++;
 	}
-	return (true);
+	if (p != 1)
+		return (55);
+	else if (e != 1)
+		return (66);
+	else if (c == 0)
+		return (77);
+	return (0);
 }
 
 void	check_map(char *map)
 {
-	if (is_double_or_null(map) == PLAYER)
-		ft_printf("Error : map has no (or double) player.\n");
-	else if (is_double_or_null(map) == DOOR)
-		ft_printf("Error : map has no (or double) exit.\n");
+	if (is_double_or_null(map) == 55)
+		ft_putstr_fd(ERR, STDERR_FILENO);
+	else if (is_double_or_null(map) == 66)
+		ft_putstr_fd(ERR, STDERR_FILENO);
+	else if(is_double_or_null(map) == 77)
+		ft_putstr_fd(ERR, STDERR_FILENO);
 	else if (is_double_or_null(map) == 10)
-		ft_printf("Error : map has one empty line or more.\n");
+		ft_putstr_fd(ERR, STDERR_FILENO);
 	else if (is_double_or_null(map) == 11)
-		ft_printf("Error : map not rectangulare.\n");
+		ft_putstr_fd(ERR, STDERR_FILENO);
 	else if (is_double_or_null(map) == ERROR)
-		ft_printf("Error : map has unknown character.\n");
+		ft_putstr_fd(ERR, STDERR_FILENO);
 	else
 		return ;
 	free(map);
@@ -86,10 +101,7 @@ char	*read_map(char *filename)
 	char	*map;
 
 	if (!is_valid_ext(filename))
-	{
-		ft_printf("Error : invalid extention, should use [.ber] map file.\n");
-		return (NULL);
-	}
+		assert_error(ERR);
 	map = NULL;
 	fd = open(filename, O_RDONLY);
 	if (fd == ERROR)

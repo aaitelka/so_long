@@ -6,55 +6,48 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:34:16 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/09 20:23:55 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:47:55 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 
-bool	valid_char(char c)
+int	size_2dmap(char *map2d[])
 {
-	return ((c == '0' || c == '1' || c == 'P' || c == 'C' || c == 'E' || c == '\n'));
+	int	size;
+
+	size = 0;
+	while (map2d[size])
+		size++;
+	return (size);
 }
 
-int	is_double_or_null(char *map)
+bool	is_valid_wall(char *map2d[])
 {
 	int	i;
-	int	p;
-	int	e;
-	int len;
-	int	lenght;
+	int	j;
+	int	size;
+	int	len;
 
+	if (!*map2d)
+		return (false);
 	i = 0;
-	p = 0;
-	e = 0;
-	len = 0;
-	lenght = ft_strchr(map, '\n') - map;
-	while (map[i])
+	size = size_2dmap(map2d);
+	while (map2d[i])
 	{
-		if (!valid_char(map[i]))
-			return (ERROR);
-		if (map[i] != '\n')
-			len++;
-		if (map[i] == '\n' || map[i + 1] == '\0')
+		j = 0;
+		while (map2d[i][j])
 		{
-			if (lenght != len)
-				return (11);
-			len = 0;
+			len = ft_strlen(map2d[i]);
+			if (map2d[0][j] != '1' || map2d[size - 1][j] != '1')
+				return (false);
+			else if (map2d[i][0] != '1' || map2d[i][len - 1] != '1')
+				return (false);
+			j++;
 		}
-		if (map[0] == '\n' || (map[i] == '\n' && map[i + 1] == '\n'))
-			return (10);
-		if (map[i] == 'P')
-			p++;
-		else if (map[i] == 'E')
-			e++;
 		i++;
 	}
-	if (p != 1)
-		return (PLAYER);
-	else if (e != 1)
-		return (DOOR);
-	return (0);
+	return (true);
 }
 
 char	**load_map(char *filename)
@@ -64,24 +57,16 @@ char	**load_map(char *filename)
 
 	map = read_map(filename);
 	if (!map)
-	{
-		ft_printf("Error : map is empty or map file not exists.\n");
-		return (NULL);
-	}
+		assert_error(ERR);
 	check_map(map);
 	map2d = ft_split(map, '\n');
 	if (!map2d)
-	{
-		free(map);
-		ft_printf("Error : malloc failed or map empty.\n");
-		return (NULL);
-	}
+		return (free(map), NULL);
 	if (!is_valid_wall(map2d))
 	{
 		free(map);
 		clear_map(map2d);
-		ft_printf("Error : map has non valid char in wall\n");
-		return (NULL);
+		assert_error(ERR);
 	}
 	return (free(map), map2d);
 }

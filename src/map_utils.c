@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:13:50 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/09 20:18:07 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:05:02 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	get_player_position(t_map *map)
 	}
 }
 
-int	count_collectibles(char *map2d[])
+int	count_coins(char *map2d[])
 {
 	int	i;
 	int	j;

@@ -58,3 +58,4 @@ dkms.conf
 .png
 so_long
 textures
+*/*.ber
