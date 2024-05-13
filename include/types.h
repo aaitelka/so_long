@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   types.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
+/*   Updated: 2024/05/13 02:25:13 by aaitelka         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
@@ -35,14 +46,23 @@
 /**
  * ERROR MSG
 */
-# define ERR_ARGS "Missing map! should run game as follow ./so_long [map].ber\n"
-# define ERR_EXTENSION "Invalid extention\n"
-# define ERR_MAP "Invalid map\n"
-# define ERR_MAP_OPEN "Opening map file, maybe file not found!\n"
-# define ERR_WINDOW "Window size is too large\n"
-# define PLAYER_STEPS "Player moves"
+# define ERR_ARGS "Missing map! should run game as follow ./so_long [map].ber!\n"
+# define ERR_EXTENSION "invalid extention!\n"
+# define ERR_GAME_INIT "initializing game\n"
+# define ERR_MAP "invalid map!\n"
+# define ERR_WALL "invalid wall!\n"
+# define ERR_MAP_OPEN "opening map file, maybe file not found!\n"
+# define ERR_WINDOW "window size is too large!\n"
+# define PLAYER_STEPS "player moves"
 # define ERR_MLX_INIT "MLX init failed.\n"
-# define ERR_GAME_INIT "Initializing game\n"
+# define ERR_MAP_EL "Error : map has empty line\n"
+# define ERR_MAP_IC "Error : map has invalid char\n"
+# define ERR_MAP_NR "Error : map not rectangulare\n"
+# define ERR_MAP_HNP "Error : map has no player\n"
+# define ERR_MAP_HMP "Error : map has multiple players\n"
+# define ERR_MAP_HNE "Error : map has no exit\n"
+# define ERR_MAP_HME "Error : map has multiple exit\n"
+# define ERR_MAP_HNC "Error : map has no collectible\n"
 /**
  * TEXTURES
 */

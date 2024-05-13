@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:29:13 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/13 01:50:12 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/13 02:16:35 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,22 @@ void	check_map(char *map)
 	length = ft_strchr(map, '\n') - map;
 	init_parse(&parse);
 	parse_map(&parse, map, length);
-	if (!(parse.player))
-		ft_putstr_fd("map has no player\n", STDERR_FILENO);
-	else if (parse.player > 1)
-		ft_putstr_fd("map has multiple players\n", STDERR_FILENO);
-	else if (!(parse.door))
-		ft_putstr_fd("map has no exit\n", STDERR_FILENO);
-	else if (parse.door > 1)
-		ft_putstr_fd("map has multiple exit\n", STDERR_FILENO);
-	else if (!(parse.collectible))
-		ft_putstr_fd("map has no collectible\n", STDERR_FILENO);
-	else if (parse.new_line)
-		ft_putstr_fd("map has empty line\n", STDERR_FILENO);
-	else if (parse.is_rect)
-		ft_putstr_fd("map not rectangulare", STDERR_FILENO);
+	if (parse.new_line)
+		ft_putstr_fd(ERR_MAP_EL, STDERR_FILENO);
 	else if (parse.invalid)
-		ft_putstr_fd("map has invalid char\n", STDERR_FILENO);
+		ft_putstr_fd(ERR_MAP_IC, STDERR_FILENO);
+	else if (parse.is_rect)
+		ft_putstr_fd(ERR_MAP_NR, STDERR_FILENO);
+	else if (!(parse.player))
+		ft_putstr_fd(ERR_MAP_HNP, STDERR_FILENO);
+	else if (parse.player > 1)
+		ft_putstr_fd(ERR_MAP_HMP, STDERR_FILENO);
+	else if (!(parse.door))
+		ft_putstr_fd(ERR_MAP_HNE, STDERR_FILENO);
+	else if (parse.door > 1)
+		ft_putstr_fd(ERR_MAP_HME, STDERR_FILENO);
+	else if (!(parse.collectible))
+		ft_putstr_fd(ERR_MAP_HNC, STDERR_FILENO);
 	else
 		return ;
 	(free(map), exit(EXIT_FAILURE));

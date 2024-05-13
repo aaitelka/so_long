@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:34:16 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/13 00:02:53 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/13 02:06:02 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	**load_map(char *filename)
 	{
 		free(map);
 		clear_map(map2d);
-		assert_error(ERR_MAP);
+		assert_error(ERR_WALL);
 	}
 	return (free(map), map2d);
 }
