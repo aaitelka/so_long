@@ -6,10 +6,9 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/12 17:50:13 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/13 17:53:56 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 GREEN	:= \033[0;32m
 NC		:= \033[0m
@@ -18,32 +17,41 @@ LIBMLX	:= ./lib/MLX42
 
 LIBFT	:= ./lib/libft
 
-CC		:= cc -g #-fsanitize=address
+CC		:= cc
 CFLAGS	:= -Wall -Wextra -Werror
 
 NAME	:= so_long
-HEADS	:= -I ./include -I $(LIBFT) -I $(LIBMLX)/include
+HEADS	:= -I ./manda/include -I ./bonus/include -I $(LIBFT) -I $(LIBMLX)/include
 
 BONUS	:= so_long_bonus
-B_HEAD	:= bonus/include/so_long_bonus.h
 
-LIBS	:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+LIBS	:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-SRCS	:=	main.c \
-			src/map.c \
-			src/moves.c \
-			src/assert.c \
-			src/window.c \
-			src/texture.c \
-			src/parsing.c \
-			src/cleaner.c \
-			src/game_init.c \
-			src/mlx_utils.c \
-			src/map_utils.c \
+SRCS	:=	manda/main.c \
+			manda/src/map.c \
+			manda/src/moves.c \
+			manda/src/assert.c \
+			manda/src/window.c \
+			manda/src/texture.c \
+			manda/src/parsing.c \
+			manda/src/cleaner.c \
+			manda/src/game_init.c \
+			manda/src/mlx_utils.c \
+			manda/src/map_utils.c \
 
 OBJS	:= $(SRCS:%.c=%.o)
 
-B_SRCS	:=	
+B_SRCS	:=	bonus/main_bonus.c \
+			bonus/src/map_bonus.c \
+			bonus/src/moves_bonus.c \
+			bonus/src/assert_bonus.c \
+			bonus/src/window_bonus.c \
+			bonus/src/texture_bonus.c \
+			bonus/src/parsing_bonus.c \
+			bonus/src/cleaner_bonus.c \
+			bonus/src/game_init_bonus.c \
+			bonus/src/mlx_utils_bonus.c \
+			bonus/src/map_utils_bonus.c \
 
 B_OBJS	:= $(B_SRCS:%_bonus.c=%_bonus.o)
 
@@ -55,16 +63,20 @@ libft:
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 	
-%.o: %.c include/so_long.h include/types.h
+%.o: %.c manda/include/so_long.h manda/include/types.h
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADS)
 
 $(NAME) : $(OBJS)
 	@echo "$(GREEN)==========| Linking $(NAME) executable... |==========$(NC)"
 	@$(CC) $(OBJS) $(LIBS) $(HEADS) -o $(NAME)
 
-%_bonus.o : %_bonus.c
-	$(CC) $(CFLAGS) -c $< -o $@
+%_bonus.o : %_bonus.c bonus/include/so_long_bonus.h bonus/include/types_bonus.h
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADS)
 
+bonus : libft libmlx $(B_OBJS)
+	@echo "$(GREEN)==========| Linking $(BONUS) executable... |==========$(NC)"
+	@$(CC) $(B_OBJS) $(LIBS) $(HEADS) -o $(BONUS)
+	
 clean :
 	@echo "$(GREEN)==========| Cleaning... |==========...$(NC)"
 	$(RM) $(OBJS) $(B_OBJS)
@@ -73,9 +85,7 @@ clean :
 
 fclean : clean
 	@echo "$(GREEN)==========| Full Cleaning... |==========$(NC)"
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(BONUS)
 	@$(MAKE) -C $(LIBFT) fclean
 
 re : fclean all
-
-.PHONY: all, clean, fclean, re, libmlx
