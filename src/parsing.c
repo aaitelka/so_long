@@ -6,115 +6,91 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:29:13 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/11 19:56:26 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/13 01:50:12 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 
-bool	is_valid_ext(char *filename)
-{
-	char	*ext;
-
-	ext = ft_strrchr(filename, '.');
-	if (!ft_strcmp(ext, EXT))
-		return (true);
-	return (false);
-}
-
 bool	valid_char(char c)
 {
-	return ((c == '0' || c == '1' || c == 'P' || c == 'C' || c == 'E' || c == '\n'));
+	return ((c == '0' || c == '1'
+			|| c == 'P' || c == 'C'
+			|| c == 'E' || c == '\n'));
 }
 
-int	is_double_or_null(char *map)
+static void	init_parse(t_parse *parse)
+{
+	parse->door = 0;
+	parse->player = 0;
+	parse->is_rect = 0;
+	parse->invalid = 0;
+	parse->new_line = 0;
+	parse->collectible = 0;
+}
+
+static void	count_objects(t_parse *parse, char c)
+{
+	if (c == 'P')
+		parse->player++;
+	else if (c == 'E')
+		parse->door ++;
+	else if (c == 'C')
+		parse->collectible++;
+}
+
+static void	parse_map(t_parse *parse, char *map, int length)
 {
 	int	i;
-	int	p;
-	int	e;
-	int	c;
 	int	len;
-	int	lenght;
 
 	i = 0;
-	p = 0;
-	e = 0;
-	c = 0;
 	len = 0;
-	lenght = ft_strchr(map, '\n') - map;
 	while (map[i])
 	{
-		if (!valid_char(map[i]))
-			return (ERROR);
+		count_objects(parse, map[i]);
+		if (!valid_char(map[i]) && parse->invalid++)
+			break ;
 		if (map[i] != '\n')
 			len++;
 		if (map[i] == '\n' || map[i + 1] == '\0')
 		{
-			if (lenght != len)
-				return (11);
+			if (length != len && parse->is_rect++)
+				break ;
 			len = 0;
 		}
-		if (map[0] == '\n' || (map[i] == '\n' && map[i + 1] == '\n'))
-			return (10);
-		if (map[i] == 'P')
-			p++;
-		else if (map[i] == 'E')
-			e++;
-		else if (map[i] == 'C')
-			c++;
+		if ((map[0] == '\n' || (map[i] == '\n' && map[i + 1] == '\n')
+				|| (map[ft_strlen(map) - 1] == '\n')) && parse->new_line++)
+			break ;
 		i++;
 	}
-	if (p != 1)
-		return (55);
-	else if (e != 1)
-		return (66);
-	else if (c == 0)
-		return (77);
-	return (0);
 }
 
 void	check_map(char *map)
 {
-	if (is_double_or_null(map) == 55)
-		ft_putstr_fd(ERR, STDERR_FILENO);
-	else if (is_double_or_null(map) == 66)
-		ft_putstr_fd(ERR, STDERR_FILENO);
-	else if(is_double_or_null(map) == 77)
-		ft_putstr_fd(ERR, STDERR_FILENO);
-	else if (is_double_or_null(map) == 10)
-		ft_putstr_fd(ERR, STDERR_FILENO);
-	else if (is_double_or_null(map) == 11)
-		ft_putstr_fd(ERR, STDERR_FILENO);
-	else if (is_double_or_null(map) == ERROR)
-		ft_putstr_fd(ERR, STDERR_FILENO);
+	t_parse	parse;
+	int		length;
+
+	length = ft_strchr(map, '\n') - map;
+	init_parse(&parse);
+	parse_map(&parse, map, length);
+	if (!(parse.player))
+		ft_putstr_fd("map has no player\n", STDERR_FILENO);
+	else if (parse.player > 1)
+		ft_putstr_fd("map has multiple players\n", STDERR_FILENO);
+	else if (!(parse.door))
+		ft_putstr_fd("map has no exit\n", STDERR_FILENO);
+	else if (parse.door > 1)
+		ft_putstr_fd("map has multiple exit\n", STDERR_FILENO);
+	else if (!(parse.collectible))
+		ft_putstr_fd("map has no collectible\n", STDERR_FILENO);
+	else if (parse.new_line)
+		ft_putstr_fd("map has empty line\n", STDERR_FILENO);
+	else if (parse.is_rect)
+		ft_putstr_fd("map not rectangulare", STDERR_FILENO);
+	else if (parse.invalid)
+		ft_putstr_fd("map has invalid char\n", STDERR_FILENO);
 	else
 		return ;
-	free(map);
-	exit(EXIT_FAILURE);
-}
-
-char	*read_map(char *filename)
-{
-	int		fd;
-	char	*line;
-	char	*temp;
-	char	*map;
-
-	if (!is_valid_ext(filename))
-		assert_error(ERR);
-	map = NULL;
-	fd = open(filename, O_RDONLY);
-	if (fd == ERROR)
-		return (NULL);
-	while (true)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		temp = ft_strjoin(map, line);
-		free(map);
-		map = temp;
-		free(line);
-	}
-	return (close(fd), map);
+	(free(map), exit(EXIT_FAILURE));
 }

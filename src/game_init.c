@@ -6,19 +6,33 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:13:03 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/11 19:48:12 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/13 00:08:28 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_map(t_map *map, char *filename)
+static void	check_reachable(t_map *map)
+{
+	if (!map->data)
+		return ;
+	get_player_position(map);
+	flood_fill(map->data, map->py, map->px);
+	if (!should_stay(map->data, map->y))
+	{
+		clear_map(map->data);
+		assert_error("exit or collectible is unreachable\n");
+	}
+	clear_map(map->data);
+}
+
+static void	init_map(t_map *map, char *filename)
 {
 	char	**map2d;
-	(void)filename;
+
 	map2d = load_map(filename);
 	if (!map2d)
-		assert_error(ERR);
+		assert_error("loading map\n");
 	map->data = map2d;
 	map->coins = count_coins(map2d);
 	map->px = 0;
@@ -29,7 +43,7 @@ void	init_map(t_map *map, char *filename)
 		map->y++;
 }
 
-void	init_textures(t_game game, t_texture *tex, t_path paths)
+static void	init_textures(t_game game, t_texture *tex, t_path paths)
 {
 	int	i;
 
@@ -39,21 +53,16 @@ void	init_textures(t_game game, t_texture *tex, t_path paths)
 		tex->texture[i] = mlx_load_png(paths.uris[i]);
 		if (!(tex->texture[i]))
 			exit(EXIT_FAILURE);
-		tex->img[i] =  mlx_texture_to_image(game.mlx, tex->texture[i]);
+		tex->img[i] = mlx_texture_to_image(game.mlx, tex->texture[i]);
 		i++;
 	}
 }
 
-void	init_mlx(t_game *game)
+static void	init_mlx(t_game *game)
 {
-	int	width;
-	int	height;
-
-	width = game->width * IMG_WH;
-	height = game->height * IMG_WH;
-	game->mlx = mlx_init(width, height, TITLE, false);
+	game->mlx = mlx_init(game->width, game->height, TITLE, false);
 	if (!game->mlx)
-		assert_error(ERR);
+		assert_error(ERR_MLX_INIT);
 }
 
 bool	init_game(t_game *game, t_path paths, char *av[])
@@ -62,17 +71,11 @@ bool	init_game(t_game *game, t_path paths, char *av[])
 	t_texture	tex;
 
 	init_map(&map, av[1]);
-	if (!map.data)
-		return (false);
-	get_player_position(&map);
-	flood_fill(map.data, map.py, map.px);
-	if (!should_stay(map.data, map.y))
-		assert_error(ERR);
-	clear_map(map.data);
+	check_reachable(&map);
 	init_map(&map, av[1]);
 	game->map = map;
-	game->width = (game)->map.x;
-	game->height = (game)->map.y;
+	game->width = game->map.x * IMG_WH;
+	game->height = game->map.y * IMG_WH;
 	game->moves = 0;
 	game->keys = "01CE";
 	game->row = 0;

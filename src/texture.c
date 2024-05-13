@@ -6,13 +6,13 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:45:15 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/11 20:00:15 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:20:14 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_path	init_paths()
+t_path	init_paths(void)
 {
 	t_path	paths;
 

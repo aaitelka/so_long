@@ -32,7 +32,6 @@ void	get_player_position(t_map *map)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (map->data[i])
 	{
 		j = 0;

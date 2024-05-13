@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/11 18:35:18 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/12 17:50:13 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIBMLX	:= ./lib/MLX42
 LIBFT	:= ./lib/libft
 
 CC		:= cc -g #-fsanitize=address
-CFLAGS	:= #-Wall -Wextra -Werror
+CFLAGS	:= -Wall -Wextra -Werror
 
 NAME	:= so_long
 HEADS	:= -I ./include -I $(LIBFT) -I $(LIBMLX)/include
@@ -55,7 +55,7 @@ libft:
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 	
-%.o: %.c include/so_long.h
+%.o: %.c include/so_long.h include/types.h
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADS)
 
 $(NAME) : $(OBJS)
