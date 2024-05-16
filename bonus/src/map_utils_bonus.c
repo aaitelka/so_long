@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:13:50 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/13 17:51:59 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:50:32 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,28 @@ void	flood_fill(char *map[], int y, int x)
 	}
 }
 
+void get_coins_position(t_map *map) {
+    
+	int		i;
+	int		j;
+	t_point *new_coin;
+
+	i = 0;
+	map->coins_pos = NULL;
+    while (map->data[i]) {
+		j = 0;
+		while (map->data[i][j]) {
+			if (map->data[i][j] == 'C')
+			{
+				new_coin = new_pos(i, j);
+				add_pos(&map->coins_pos, new_coin);
+			}
+			j++;
+		}
+		i++;
+    }
+}
+
 void	get_player_position(t_map *map)
 {
 	int	i;
@@ -41,6 +63,11 @@ void	get_player_position(t_map *map)
 			{
 				map->py = i;
 				map->px = j;
+			}
+			if (map->data[i][j] == 'E')
+			{
+				map->ey = i;
+				map->ex = j;
 			}
 			j++;
 		}

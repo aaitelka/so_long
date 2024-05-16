@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:28:43 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/13 17:52:02 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/15 22:20:24 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ void	key_events(mlx_key_data_t keydata, void *param)
 		move_down(game);
 	else if (is_pressed(keydata, MLX_KEY_D))
 		move_right(game);
-	else
-		return ;
+	return ;
 }

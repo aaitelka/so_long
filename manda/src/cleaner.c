@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:31:14 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/13 17:50:41 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/14 22:10:18 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	clear_textures(t_texture tex)
 		mlx_delete_texture(tex.texture[i++]);
 }
 
-void	clear_all(mlx_t *mlx, t_texture tex)
+void	clear_images(mlx_t *mlx, t_texture tex)
 {
 	int	i;
 	int	size;
@@ -48,7 +48,6 @@ void	clear_all(mlx_t *mlx, t_texture tex)
 	while (i < size)
 	{
 		mlx_delete_image(mlx, tex.img[i]);
-		mlx_delete_texture(tex.texture[i]);
 		i++;
 	}
 }
@@ -56,6 +55,6 @@ void	clear_all(mlx_t *mlx, t_texture tex)
 void	destroy(t_game game)
 {
 	clear_map(game.map.data);
-	clear_all(game.mlx, game.tex);
+	clear_images(game.mlx, game.tex);
 	mlx_terminate(game.mlx);
 }

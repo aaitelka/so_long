@@ -6,11 +6,26 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:28:21 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/13 17:52:12 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:37:47 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+void	put_img(t_game *game, mlx_image_t *img, int32_t x, int32_t y)
+{
+	int	ret;
+
+	if (!img)
+		assert_error("putting image to window\n");
+	ret = mlx_image_to_window(game->mlx, img, x, y);
+	if (ret == -1)
+	{
+		mlx_close_window(game->mlx);
+		destroy(*game);
+		assert_error("puting image to window\n");
+	}
+}
 
 void	check_window_size(t_game game)
 {
@@ -25,31 +40,39 @@ void	check_window_size(t_game game)
 	}
 }
 
-void	fill_window(t_game g)
+static void	organize(t_game *game, int *i, int *j)
+{
+	int	l;
+
+	l = -1;
+	while (game->keys[++l])
+	{
+		if (game->map.data[*i][*j] == game->keys[l])
+			put_img(game, game->tex.main_img[l], game->row, game->col);
+		else if (game->map.data[*i][*j] == 'P')
+			put_img(game, game->tex.player_img[0], game->row, game->col);
+		else if (game->map.data[*i][*j] == 'C')
+			put_img(game, game->tex.coin_img[0], game->row, game->col);
+	}
+}
+
+void	fill_window(t_game *g)
 {
 	int	i;
 	int	j;
-	int	l;
 
 	i = 0;
-	while (g.map.data[i] != NULL)
+	while (g->map.data[i] != NULL)
 	{
 		j = 0;
-		while (g.map.data[i][j])
+		while (g->map.data[i][j])
 		{
-			l = -1;
-			while (g.keys[++l])
-			{
-				if (g.map.data[i][j] == g.keys[l])
-					mlx_image_to_window(g.mlx, g.tex.img[l], g.row, g.col);
-				else if (g.map.data[i][j] == 'P')
-					mlx_image_to_window(g.mlx, g.tex.img[4], g.row, g.col);
-			}
-			g.row += IMG_WH;
+			organize(g, &i, &j);
+			g->row += IMG_WH;
 			j++;
 		}
-		g.row = 0;
-		g.col += IMG_WH;
+		g->row = 0;
+		g->col += IMG_WH;
 		i++;
 	}
 }

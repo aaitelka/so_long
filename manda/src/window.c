@@ -6,11 +6,24 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:28:21 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/12 18:27:31 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:52:21 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	put_img(t_game *game, mlx_image_t *img, int32_t x, int32_t y)
+{
+	int	ret;
+
+	ret = mlx_image_to_window(game->mlx, img, x, y);
+	if (ret == -1)
+	{
+		mlx_close_window(game->mlx);
+		destroy(*game);
+		assert_error("puting image to window\n");
+	}
+}
 
 void	check_window_size(t_game game)
 {
@@ -41,9 +54,9 @@ void	fill_window(t_game g)
 			while (g.keys[++l])
 			{
 				if (g.map.data[i][j] == g.keys[l])
-					mlx_image_to_window(g.mlx, g.tex.img[l], g.row, g.col);
+					put_img(&g, g.tex.img[l], g.row, g.col);
 				else if (g.map.data[i][j] == 'P')
-					mlx_image_to_window(g.mlx, g.tex.img[4], g.row, g.col);
+					put_img(&g, g.tex.img[4], g.row, g.col);
 			}
 			g.row += IMG_WH;
 			j++;

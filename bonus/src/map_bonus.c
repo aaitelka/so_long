@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:34:16 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/13 17:51:57 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:41:33 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	**load_map(char *filename)
 
 	map = read_map(filename);
 	if (!map)
-		assert_error("Error reading map\n");
+		assert_error("reading map\n");
 	check_map(map);
 	map2d = ft_split(map, '\n');
 	if (!map2d)

@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/13 17:58:17 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:13:15 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 /**
  * TEXTURES INDEXE'S
 */
-# define I_GROUND 0
-# define I_WALL 1
-# define I_COIN 2
-# define I_DOOR 3
-# define I_PF 4
-# define I_PB 5
-# define I_PL 6
-# define I_PR 7
+# define I_GR 0
+# define I_WA 1
+# define I_DO 2
+# define I_PF 3
+# define I_PB 4
+# define I_PL 5
+# define I_PR 6
+# define I_CO 7
 /**
  * VALID MAP CHAR'S
 */
@@ -64,17 +64,45 @@
 /**
  * TEXTURES
 */
-# define PLAYER_FRONT "bonus/textures/player_front.png"
-# define PLAYER_BACK "bonus/textures/player_back.png"
-# define PLAYER_LEFT "bonus/textures/player_left.png"
-# define PLAYER_RIGHT "bonus/textures/player_right.png"
-# define TEXTURE_WALL "bonus/textures/wall.png"
-# define TEXTURE_COIN "bonus/textures/ball.png"
-# define TEXTURE_DOOR "bonus/textures/door.png"
-# define TEXTURE_GROUND "bonus/textures/ground.png"
+# define PLAYER_FRONT "textures/player_front.png"
+# define PLAYER_BACK "textures/player_back.png"
+# define PLAYER_LEFT "textures/player_left.png"
+# define PLAYER_RIGHT "textures/player_right.png"
+
+# define TEXTURE_GROUND "textures/ground.png"
+# define TEXTURE_WALL "textures/wall.png"
+# define TEXTURE_DOOR "textures/door.png"
+
+//DOOR
+# define DOOR_01 "textures/door_1.png"
+# define DOOR_02 "textures/door_2.png"
+# define DOOR_03 "textures/door_3.png"
+# define DOOR_04 "textures/door_4.png"
+//COIN
+# define DELAY 10
+# define COIN_ST 7
+# define COIN_EN 16
+# define COIN_01 "textures/coin_1.png"
+# define COIN_02 "textures/coin_2.png"
+# define COIN_03 "textures/coin_3.png"
+# define COIN_04 "textures/coin_4.png"
+# define COIN_05 "textures/coin_5.png"
+# define COIN_06 "textures/coin_6.png"
+# define COIN_07 "textures/coin_7.png"
+# define COIN_08 "textures/coin_8.png"
+# define COIN_09 "textures/coin_9.png"
+# define COIN_10 "textures/coin_10.png"
 /**
  * CALCULATE SIZE OF ANY ARRAY
 */
+
+typedef struct s_point
+{
+	int				x;
+	int				y;
+	struct s_point *next;
+}	t_point;
+
 typedef struct s_parse
 {
 	int	door;
@@ -86,25 +114,33 @@ typedef struct s_parse
 	int	collectible;
 }	t_parse;
 
-typedef struct s_path
-{
-	char	*uris[9];
-}	t_path;
-
 typedef struct s_map
 {
-	int		x;
-	int		y;
-	int		px;
-	int		py;
-	int		coins;
-	char	**data;
+	int			x;
+	int			y;
+	int			ex;
+	int			ey;
+	int			px;
+	int			py;
+	int			coins;
+	int			pos[2];
+	char		**data;
+	t_point		*coins_pos;
 }	t_map;
 
 typedef struct s_texture
 {
-	mlx_texture_t	*texture[8];
-	mlx_image_t		*img[8];
+	char			*main_uris[3];		//WALL AND GROUND
+	char			*door_uris[5];		//EXIT
+	char			*coin_uris[11];	//COINS
+	char			*player_uris[5];	//PLAYER
+	char			*enemy_uris[11];	//ENEMY
+	mlx_texture_t	*texture;
+	mlx_image_t		*main_img[2];
+	mlx_image_t		*door_img[4];
+	mlx_image_t		*coin_img[10];
+	mlx_image_t		*player_img[4];
+	mlx_image_t		*enemy_img[10];
 }	t_texture;
 
 typedef struct s_game
