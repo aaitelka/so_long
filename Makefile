@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/17 17:33:25 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/17 19:06:28 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,12 +49,12 @@ B_SRCS	:=	bonus/main_bonus.c \
 			bonus/src/texture_bonus.c \
 			bonus/src/parsing_bonus.c \
 			bonus/src/cleaner_bonus.c \
-			bonus/src/load_textures.c \
 			bonus/src/game_init_bonus.c \
 			bonus/src/mlx_utils_bonus.c \
 			bonus/src/map_utils_bonus.c \
 			bonus/src/coins_utils_bonus.c \
 			bonus/src/enemy_moves_bonus.c \
+			bonus/src/load_textures_bonus.c \
 
 B_OBJS	:= $(B_SRCS:%_bonus.c=%_bonus.o)
 

@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:13:03 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 17:31:42 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:07:15 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	check_reachable(t_map *map)
 	if (!map->data)
 		return ;
 	get_player_position(map);
-	flood_fill(map->data, map->player_pos.y, map->player_pos.x);
+	flood_fill(map->data, map->p_pos.y, map->p_pos.x);
 	if (!should_stay(map->data, map->y))
 	{
 		clear_map(map->data);

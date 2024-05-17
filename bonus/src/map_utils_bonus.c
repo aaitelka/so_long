@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:13:50 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 17:38:34 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:07:28 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ void	get_player_position(t_map *map)
 		{
 			if (map->data[i][j] == 'P')
 			{
-				map->player_pos.x = j;
-				map->player_pos.y = i;
-				map->player_pos.next = NULL;
+				map->p_pos.x = j;
+				map->p_pos.y = i;
+				map->p_pos.next = NULL;
 			}
 			if (map->data[i][j] == 'E')
 			{

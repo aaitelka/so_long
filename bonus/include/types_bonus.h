@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 16:41:18 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:02:11 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 
 # define EXT ".ber"
 # define IMG_WH 60
+# define UP 'U'
+# define DOWN 'D'
+# define LEFT 'L'
+# define RIGHT 'R'
 /**
  * TEXTURES INDEXE'S
 */
@@ -125,7 +129,7 @@ typedef struct s_map
 	int			coins;
 	char		**data;
 	t_point		door_pos;
-	t_point		player_pos;
+	t_point		p_pos;
 	t_point		*coins_pos;
 	t_point		*enemies_pos;
 }	t_map;
