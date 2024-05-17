@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/17 19:06:28 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/17 19:43:04 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ HEADS	:= -I ./manda/include -I ./bonus/include -I $(LIBFT) -I $(LIBMLX)/include
 
 BONUS	:= so_long_bonus
 
-LIBS	:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -fsanitize=address
+LIBS	:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" #-fsanitize=address
 
 SRCS	:=	manda/main.c \
 			manda/src/map.c \

@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:51:22 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 16:41:29 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:46:53 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,19 @@ void	add_pos(t_point **lst, t_point *new)
 	*lst = new;
 }
 
-void	iter(t_point *lst, void (*f)(int, int))
+void	clear_pos(t_point *point)
 {
-	if (!lst || !f)
+	t_point	*current;
+	t_point	*next;
+
+	if (!point)
 		return ;
-	while (lst)
+	current = point->next;
+	while (current)
 	{
-		f(lst->x, lst->y);
-		lst = lst->next;
+		next = current->next;
+		free(current);
+		current = next;
 	}
+	free(point);
 }

@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/14 20:08:00 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:25:46 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <MLX42/MLX42.h>
 
 # define EXT ".ber"
-# define IMG_WH 60
+# define W 60
 /**
  * TEXTURES INDEXE'S
 */

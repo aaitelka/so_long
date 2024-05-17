@@ -6,13 +6,13 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:28:21 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/14 15:52:21 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:27:14 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	put_img(t_game *game, mlx_image_t *img, int32_t x, int32_t y)
+void	put(t_game *game, mlx_image_t *img, int32_t x, int32_t y)
 {
 	int	ret;
 
@@ -54,15 +54,15 @@ void	fill_window(t_game g)
 			while (g.keys[++l])
 			{
 				if (g.map.data[i][j] == g.keys[l])
-					put_img(&g, g.tex.img[l], g.row, g.col);
+					put(&g, g.tex.img[l], g.row, g.col);
 				else if (g.map.data[i][j] == 'P')
-					put_img(&g, g.tex.img[4], g.row, g.col);
+					put(&g, g.tex.img[4], g.row, g.col);
 			}
-			g.row += IMG_WH;
+			g.row += W;
 			j++;
 		}
 		g.row = 0;
-		g.col += IMG_WH;
+		g.col += W;
 		i++;
 	}
 }

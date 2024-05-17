@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:31:14 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 17:32:33 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:14:20 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ void	destroy(t_game game)
 	// ft_lstclear(&game.map.coins_pos, free);
 	clear_map(game.map.data);
 	// clear_images(game.mlx, game.tex);
+	clear_pos(game.map.coins_pos);
+	clear_pos(game.map.enemies_pos);
 	mlx_terminate(game.mlx);
 }

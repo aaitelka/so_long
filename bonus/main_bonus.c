@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:01:49 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 17:31:53 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:28:35 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void animate_coin(t_game *game)
 		while (pos)
 		{
 			if (game->map.data[pos->x][pos->y] == 'C')
-				put_img(game, game->tex.coin_img[index], pos->y * 60, pos->x * 60);
+				put(game, game->tex.coin_img[index], pos->y * 60, pos->x * 60);
 			pos = pos->next;
 		}
 		index++;
@@ -66,7 +66,7 @@ void animate_door(t_game *game)
 	{
 		if (!(++i % DELAY))
 		{
-			put_img(game, game->tex.door_img[index], game->map.door_pos.x * 60, game->map.door_pos.y * 60);
+			put(game, game->tex.door_img[index], game->map.door_pos.x * 60, game->map.door_pos.y * 60);
 			index++;
 		}
 	}
@@ -100,7 +100,9 @@ void	start_game(char *av[])
 	get_coins_position(&game.map);
 	get_enemies_position(&game.map);
 	fill_window(&game);
-	// mlx_put_string(game.mlx, ft_itoa(game.moves), 30, 30);
+	game.step = ft_itoa(game.moves);
+	mlx_put_string(game.mlx, game.step, 30, 30);
+	free(game.step);
 	mlx_key_hook(game.mlx, key_events, &game);
 	mlx_loop_hook(game.mlx, events_listener, &game);
 	mlx_loop(game.mlx);
@@ -109,7 +111,7 @@ void	start_game(char *av[])
 
 int	main(int ac, char *av[])
 {
-	// atexit(l);
+	atexit(l);
 	if (ac == 2)
 		start_game(av);
 	else

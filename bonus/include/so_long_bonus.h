@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:00:18 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 17:30:59 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:47:15 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	load_textures(t_game *game);
 */
 void	fill_window(t_game *game);
 void	check_window_size(t_game game);
-void	put_img(t_game *game, mlx_image_t *img, int32_t x, int32_t y);
+void	put(t_game *game, mlx_image_t *img, int32_t x, int32_t y);
 /**
  *	MLX UTILS
 */
 void	key_events(mlx_key_data_t keydata, void *param);
-void	put_image(t_game *game);
+// void	put_image(t_game *game);
 /**
  *	ASSERTION
 */
@@ -73,6 +73,7 @@ void	add_pos(t_point **lst, t_point *new);
 void	clear_map(char **map);
 void	clear_textures(t_texture tex);
 void	clear_images(mlx_t *mlx, t_texture tex);
+void	clear_pos(t_point *point);
 void	destroy(t_game game);
 
 #endif

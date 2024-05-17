@@ -6,13 +6,13 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:28:21 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/16 23:01:00 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:27:14 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	put_img(t_game *game, mlx_image_t *img, int32_t x, int32_t y)
+void	put(t_game *game, mlx_image_t *img, int32_t x, int32_t y)
 {
 	int	ret;
 
@@ -48,13 +48,13 @@ static void	organize(t_game *game, int *i, int *j)
 	while (game->keys[++l])
 	{
 		if (game->map.data[*i][*j] == game->keys[l])
-			put_img(game, game->tex.main_img[l], game->row, game->col);
+			put(game, game->tex.main_img[l], game->row, game->col);
 		if (game->map.data[*i][*j] == 'P')
-			put_img(game, game->tex.player_img[0], game->row, game->col);
+			put(game, game->tex.player_img[0], game->row, game->col);
 		else if (game->map.data[*i][*j] == 'C')
-			put_img(game, game->tex.coin_img[0], game->row, game->col);
+			put(game, game->tex.coin_img[0], game->row, game->col);
 		else if (game->map.data[*i][*j] == 'N')
-			put_img(game, game->tex.enemy_img[0], game->row, game->col);
+			put(game, game->tex.enemy_img[0], game->row, game->col);
 	}
 }
 
@@ -70,11 +70,11 @@ void	fill_window(t_game *g)
 		while (g->map.data[i][j])
 		{
 			organize(g, &i, &j);
-			g->row += IMG_WH;
+			g->row += W;
 			j++;
 		}
 		g->row = 0;
-		g->col += IMG_WH;
+		g->col += W;
 		i++;
 	}
 }

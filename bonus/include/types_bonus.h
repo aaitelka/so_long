@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 19:02:11 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:25:44 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <MLX42/MLX42.h>
 
 # define EXT ".ber"
-# define IMG_WH 60
+# define W 60
 # define UP 'U'
 # define DOWN 'D'
 # define LEFT 'L'
@@ -157,6 +157,7 @@ typedef struct s_game
 	int			row;
 	int			col;
 	char		*keys;
+	char		*step;
 	mlx_t		*mlx;
 	t_map		map;
 	t_texture	tex;

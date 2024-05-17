@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:13:03 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 19:07:15 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:25:46 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ bool	init_game(t_game *game, char *av[])
 	check_reachable(&map);
 	init_map(&map, av[1]);
 	game->map = map;
-	game->width = game->map.x * IMG_WH;
-	game->height = game->map.y * IMG_WH;
+	game->width = game->map.x * W;
+	game->height = game->map.y * W;
 	game->moves = 0;
 	game->keys = "01E";
 	game->row = 0;
