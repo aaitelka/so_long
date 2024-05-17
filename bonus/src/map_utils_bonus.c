@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:13:50 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/16 20:50:32 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:38:34 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,19 @@ void	flood_fill(char *map[], int y, int x)
 	}
 }
 
-void get_coins_position(t_map *map) {
-    
+void	get_coins_position(t_map *map)
+{
 	int		i;
 	int		j;
-	t_point *new_coin;
+	t_point	*new_coin;
 
 	i = 0;
 	map->coins_pos = NULL;
-    while (map->data[i]) {
+	while (map->data[i])
+	{
 		j = 0;
-		while (map->data[i][j]) {
+		while (map->data[i][j])
+		{
 			if (map->data[i][j] == 'C')
 			{
 				new_coin = new_pos(i, j);
@@ -45,7 +47,31 @@ void get_coins_position(t_map *map) {
 			j++;
 		}
 		i++;
-    }
+	}
+}
+
+void	get_enemies_position(t_map *map)
+{
+	int		i;
+	int		j;
+	t_point	*new_enemy;
+
+	i = 0;
+	map->enemies_pos = NULL;
+	while (map->data[i])
+	{
+		j = 0;
+		while (map->data[i][j])
+		{
+			if (map->data[i][j] == 'N')
+			{
+				new_enemy = new_pos(i, j);
+				add_pos(&map->enemies_pos, new_enemy);
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 void	get_player_position(t_map *map)
@@ -61,13 +87,15 @@ void	get_player_position(t_map *map)
 		{
 			if (map->data[i][j] == 'P')
 			{
-				map->py = i;
-				map->px = j;
+				map->player_pos.x = j;
+				map->player_pos.y = i;
+				map->player_pos.next = NULL;
 			}
 			if (map->data[i][j] == 'E')
 			{
-				map->ey = i;
-				map->ex = j;
+				map->door_pos.x = j;
+				map->door_pos.y = i;
+				map->door_pos.next = NULL;
 			}
 			j++;
 		}

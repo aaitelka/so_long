@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:28:21 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/16 19:37:47 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/16 23:01:00 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ static void	organize(t_game *game, int *i, int *j)
 	{
 		if (game->map.data[*i][*j] == game->keys[l])
 			put_img(game, game->tex.main_img[l], game->row, game->col);
-		else if (game->map.data[*i][*j] == 'P')
+		if (game->map.data[*i][*j] == 'P')
 			put_img(game, game->tex.player_img[0], game->row, game->col);
 		else if (game->map.data[*i][*j] == 'C')
 			put_img(game, game->tex.coin_img[0], game->row, game->col);
+		else if (game->map.data[*i][*j] == 'N')
+			put_img(game, game->tex.enemy_img[0], game->row, game->col);
 	}
 }
 

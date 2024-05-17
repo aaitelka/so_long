@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:00:18 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/16 16:57:37 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:30:59 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	move_up(t_game *game);
 void	move_down(t_game *game);
 void	move_left(t_game *game);
 void	move_right(t_game *game);
+//ENEMY
+void	animate_enemy(t_game *game);
 /**
  *	MAP
 */
@@ -35,15 +37,15 @@ char	**load_map(char *filename);
 bool	should_stay(char *map[], int size);
 void	get_player_position(t_map *map);
 void	get_coins_position(t_map *map);
+void	get_enemies_position(t_map *map);
 void	flood_fill(char *map[], int y, int x);
 void	check_map(char *map);
 int		count_coins(char *map2d[]);
 /**
  *	TEXTURE
 */
-// t_path	init_paths(void);
-// t_path	coins_paths(void);
-void	load_textures(t_texture	*tex);
+void	init_textures(t_texture	*tex);
+void	load_textures(t_game *game);
 /**
  *	WINDOW
 */

@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:01:49 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/16 20:49:37 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:31:53 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void l()
 
 void animate_coin(t_game *game)
 {
-
 	static int i = 0;
 	static int index = 0;
 	int size = sizeof(game->tex.coin_img) / sizeof(game->tex.coin_img[0]);
@@ -67,11 +66,12 @@ void animate_door(t_game *game)
 	{
 		if (!(++i % DELAY))
 		{
-			put_img(game, game->tex.door_img[index], game->map.ex * 60, game->map.ey * 60);
+			put_img(game, game->tex.door_img[index], game->map.door_pos.x * 60, game->map.door_pos.y * 60);
 			index++;
 		}
 	}
 }
+
 
 void	events_listener(void *param)
 {
@@ -80,7 +80,7 @@ void	events_listener(void *param)
 	game = (t_game *)param;
 	animate_coin(game);
 	animate_door(game);
-	
+	animate_enemy(game);
 }
 
 void print_coins_pos(int x, int y)
@@ -92,11 +92,13 @@ void	start_game(char *av[])
 {
 	t_game	game;
 
-	load_textures(&(game.tex));
+	init_textures(&(game.tex));
 	if (!init_game(&game, av))
 		assert_error(ERR_GAME_INIT);
 	check_window_size(game);
+	get_player_position(&game.map);
 	get_coins_position(&game.map);
+	get_enemies_position(&game.map);
 	fill_window(&game);
 	// mlx_put_string(game.mlx, ft_itoa(game.moves), 30, 30);
 	mlx_key_hook(game.mlx, key_events, &game);

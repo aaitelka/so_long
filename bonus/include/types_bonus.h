@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/16 18:13:15 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:41:18 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@
 # define COIN_08 "textures/coin_8.png"
 # define COIN_09 "textures/coin_9.png"
 # define COIN_10 "textures/coin_10.png"
+//ENEMY
+# define ENEMY_01 "textures/enemy_1.png"
+
 /**
  * CALCULATE SIZE OF ANY ARRAY
 */
@@ -100,6 +103,7 @@ typedef struct s_point
 {
 	int				x;
 	int				y;
+	bool			dir;
 	struct s_point *next;
 }	t_point;
 
@@ -118,14 +122,12 @@ typedef struct s_map
 {
 	int			x;
 	int			y;
-	int			ex;
-	int			ey;
-	int			px;
-	int			py;
 	int			coins;
-	int			pos[2];
 	char		**data;
+	t_point		door_pos;
+	t_point		player_pos;
 	t_point		*coins_pos;
+	t_point		*enemies_pos;
 }	t_map;
 
 typedef struct s_texture
