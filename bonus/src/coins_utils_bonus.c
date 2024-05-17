@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:51:22 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 20:43:28 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 23:43:44 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_point	*new_pos(int x, int y)
 	point->y = y;
 	point->dir = true;
 	point->next = NULL;
+	point->index = 0;
+	point->step = 0;
 	return (point);
 }
 

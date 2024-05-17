@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:28:43 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 21:14:07 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 22:45:21 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	key_events(mlx_key_data_t keydata, void *param)
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE)
 		mlx_close_window(game->mlx);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_W) && keydata.action == MLX_PRESS)
 		move_up(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_A) && keydata.action == MLX_PRESS)
 		move_left(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_S) && keydata.action == MLX_PRESS)
 		move_down(game);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D) && keydata.action == MLX_PRESS)
 		move_right(game);
 	return ;
 }

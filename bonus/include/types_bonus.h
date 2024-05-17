@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 22:26:26 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 23:42:53 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@
 # define ENEMY_03 "textures/enemy_3.png"
 # define ENEMY_04 "textures/enemy_4.png"
 # define ENEMY_05 "textures/enemy_5.png"
-# define ENEMY_06 "textures/enemy_4.png"
+# define ENEMY_06 "textures/enemy_6.png"
 # define ENEMY_07 "textures/enemy_7.png"
 # define ENEMY_08 "textures/enemy_8.png"
 # define ENEMY_09 "textures/enemy_9.png"
@@ -114,6 +114,8 @@ typedef struct s_point
 {
 	int				x;
 	int				y;
+	int				index;
+	int				step;
 	bool			dir;
 	struct s_point	*next;
 }	t_point;
