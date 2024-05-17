@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:45:15 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 17:39:03 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 22:24:26 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ static void	init_coin(t_texture	*tex)
 static void	init_enemy(t_texture	*tex)
 {
 	tex->enemy_uris[0] = ENEMY_01;
-	tex->enemy_uris[1] = ENEMY_01;
-	tex->enemy_uris[2] = ENEMY_01;
-	tex->enemy_uris[3] = ENEMY_01;
-	tex->enemy_uris[4] = ENEMY_01;
-	tex->enemy_uris[5] = ENEMY_01;
-	tex->enemy_uris[6] = ENEMY_01;
-	tex->enemy_uris[7] = ENEMY_01;
-	tex->enemy_uris[8] = ENEMY_01;
-	tex->enemy_uris[9] = ENEMY_01;
+	tex->enemy_uris[1] = ENEMY_02;
+	tex->enemy_uris[2] = ENEMY_03;
+	tex->enemy_uris[3] = ENEMY_04;
+	tex->enemy_uris[4] = ENEMY_05;
+	tex->enemy_uris[5] = ENEMY_06;
+	tex->enemy_uris[6] = ENEMY_07;
+	tex->enemy_uris[7] = ENEMY_08;
+	tex->enemy_uris[8] = ENEMY_09;
+	tex->enemy_uris[9] = ENEMY_10;
 	tex->enemy_uris[10] = NULL;
 }
 

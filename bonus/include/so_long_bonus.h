@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:00:18 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 19:47:15 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:44:45 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 //ENEMY
 void	animate_enemy(t_game *game);
+void	animator(void *param);
 /**
  *	MAP
 */
 char	**load_map(char *filename);
-bool	should_stay(char *map[], int size);
 void	get_player_position(t_map *map);
 void	get_coins_position(t_map *map);
 void	get_enemies_position(t_map *map);
@@ -65,8 +65,7 @@ void	assert_error(char *msg);
  *	ASSERTION
 */
 t_point	*new_pos(int x, int y);
-void	add_pos(t_point **lst, t_point *new);           
-
+void	add_pos(t_point **lst, t_point *new);
 /**
  *	CLEANER
 */

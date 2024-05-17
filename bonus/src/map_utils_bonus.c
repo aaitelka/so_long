@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 20:13:50 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 19:07:28 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:35:48 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,24 +123,4 @@ int	count_coins(char *map2d[])
 		i++;
 	}
 	return (c);
-}
-
-bool	should_stay(char *map[], int size)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '0' && map[i][j] != '1')
-				return (false);
-			j++;
-		}
-		i++;
-	}
-	return (true);
 }

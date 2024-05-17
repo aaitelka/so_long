@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 20:25:44 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 22:26:26 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,14 @@
 /**
  * TEXTURES
 */
+# define TEXTURE_GROUND "textures/ground.png"
+# define TEXTURE_WALL "textures/wall.png"
+# define TEXTURE_DOOR "textures/door.png"
+//PLAYER
 # define PLAYER_FRONT "textures/player_front.png"
 # define PLAYER_BACK "textures/player_back.png"
 # define PLAYER_LEFT "textures/player_left.png"
 # define PLAYER_RIGHT "textures/player_right.png"
-
-# define TEXTURE_GROUND "textures/ground.png"
-# define TEXTURE_WALL "textures/wall.png"
-# define TEXTURE_DOOR "textures/door.png"
-
 //DOOR
 # define DOOR_01 "textures/door_1.png"
 # define DOOR_02 "textures/door_2.png"
@@ -98,7 +97,15 @@
 # define COIN_10 "textures/coin_10.png"
 //ENEMY
 # define ENEMY_01 "textures/enemy_1.png"
-
+# define ENEMY_02 "textures/enemy_2.png"
+# define ENEMY_03 "textures/enemy_3.png"
+# define ENEMY_04 "textures/enemy_4.png"
+# define ENEMY_05 "textures/enemy_5.png"
+# define ENEMY_06 "textures/enemy_4.png"
+# define ENEMY_07 "textures/enemy_7.png"
+# define ENEMY_08 "textures/enemy_8.png"
+# define ENEMY_09 "textures/enemy_9.png"
+# define ENEMY_10 "textures/enemy_10.png"
 /**
  * CALCULATE SIZE OF ANY ARRAY
 */
@@ -108,7 +115,7 @@ typedef struct s_point
 	int				x;
 	int				y;
 	bool			dir;
-	struct s_point *next;
+	struct s_point	*next;
 }	t_point;
 
 typedef struct s_parse
@@ -136,11 +143,11 @@ typedef struct s_map
 
 typedef struct s_texture
 {
-	char			*main_uris[3];		//WALL AND GROUND
-	char			*door_uris[5];		//EXIT
-	char			*coin_uris[11];	//COINS
-	char			*player_uris[5];	//PLAYER
-	char			*enemy_uris[11];	//ENEMY
+	char			*main_uris[3];
+	char			*door_uris[5];
+	char			*coin_uris[11];
+	char			*player_uris[5];
+	char			*enemy_uris[11];
 	mlx_texture_t	*texture;
 	mlx_image_t		*main_img[2];
 	mlx_image_t		*door_img[4];

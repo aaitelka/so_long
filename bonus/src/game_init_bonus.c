@@ -6,11 +6,31 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:13:03 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 19:25:46 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:36:30 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+static int	should_stay(char *map[], int size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != '0' && map[i][j] != '1')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
 
 static void	check_reachable(t_map *map)
 {
