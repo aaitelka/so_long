@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:34:16 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/18 17:12:51 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 20:30:13 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,6 @@ bool	is_valid_ext(char *filename)
 	return (false);
 }
 
-static int	size_2dmap(char *map2d[])
-{
-	int	size;
-
-	size = 0;
-	while (map2d[size])
-		size++;
-	return (size);
-}
-
 bool	is_valid_wall(char *map2d[])
 {
 	int	i;
@@ -42,7 +32,9 @@ bool	is_valid_wall(char *map2d[])
 	int	len;
 
 	i = 0;
-	size = size_2dmap(map2d);
+	size = 0;
+	while (map2d[size])
+		size++;
 	while (map2d[i])
 	{
 		j = 0;
@@ -90,7 +82,7 @@ bool	double_enemy(char *map2d[])
 {
 	int	i;
 	int	j;
-	int count;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -133,7 +125,7 @@ char	**load_map(char *filename)
 	{
 		free(map);
 		clear_map(map2d);
-		assert_error("map has double enemies in the same line\n");
+		assert_error(ERR_ENEMIES);
 	}
 	return (free(map), map2d);
 }

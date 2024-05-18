@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/18 17:05:37 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 20:21:42 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@
 # define ERR_MAP_HNE "Error : map has no exit\n"
 # define ERR_MAP_HME "Error : map has multiple exit\n"
 # define ERR_MAP_HNC "Error : map has no collectible\n"
+# define ERR_ENEMIES "map has double enemies in the same line\n"
 /**
  * TEXTURES
 */
@@ -129,7 +130,6 @@ typedef struct s_parse
 	int	player;
 	int	length;
 	int	collectible;
-	int	enemies;
 }	t_parse;
 
 typedef struct s_map
