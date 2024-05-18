@@ -6,10 +6,12 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 23:45:40 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/07 00:49:20 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/18 01:44:43 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+GREEN := \033[0;32m
+NC := \033[0m
 NAME	:=	libft.a
 HEAD	:= 	libft.h
 CC		:=	cc
@@ -75,12 +77,14 @@ B_OBJS	:=	$(BONUS:%c=%o)
 all		:	$(NAME)
 
 %o		:	%c $(HEAD)
-			$(CC) $(CFLAGS) -c -o $@ $<
+			@$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME)	:	$(OBJS)
+			@echo "$(GREEN)==========| $(NAME) archived... |==========$(NC)"
 			$(AR) $(NAME) $(OBJS)
 
 bonus	:	$(B_OBJS)
+			@echo "$(GREEN)==========| $(NAME) bonus archived... |==========$(NC)"
 			$(AR) $(NAME) $(B_OBJS)
 
 clean	:

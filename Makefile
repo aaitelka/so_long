@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/18 01:23:40 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/18 02:36:47 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,7 @@ NAME := so_long
 BONUS := so_long_bonus
 
 HEADS := -I ./manda/include -I ./bonus/include -I $(LIBFT) -I $(LIBMLX)/include
-# B_HEADS := -I ./bonus/include -I $(LIBFT) -I $(LIBMLX)/include
-LIBS := $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+LIBS := $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -lglfw -ldl -lglfw -pthread -lm -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRCS := manda/main.c \
         manda/src/map.c \
@@ -52,37 +51,37 @@ B_SRCS := bonus/main_bonus.c \
           bonus/src/enemy_moves_bonus.c \
           bonus/src/load_textures_bonus.c
 
-B_OBJS := $(B_SRCS:%_bonus.c=%_bonus.o)
+B_OBJS := $(B_SRCS:%.c=%.o)
 
-all: libs $(NAME)
-
-libft:
-	@$(MAKE) --no-print-directory -C $(LIBFT) -j4
-	@$(MAKE) --no-print-directory -C $(LIBFT) bonus -j4
-
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && \
-	make -C $(LIBMLX)/build -j4
-
-libs: libft libmlx
-
-%.o: %.c
-	@$(CC) $(CFLAGS) $(HEADS) -o $@ -c $<
+all: libft libmlx $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(GREEN)==========| Linking $(NAME) executable... |==========$(NC)"
 	$(CC) $(OBJS) $(LIBS) -o $(NAME)
 
-bonus: libs $(B_OBJS)
+bonus: libft libmlx $(BONUS)
+
+$(BONUS): $(B_OBJS)
 	@echo "$(GREEN)==========| Linking $(BONUS) executable... |==========$(NC)"
 	$(CC) $(CFLAGS) $(B_OBJS) $(LIBS) -o $(BONUS)
 
-%_bonus.o : %_bonus.c
+libft:
+	@$(MAKE) --no-print-directory -C $(LIBFT) -j4
+
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && \
+	make -C $(LIBMLX)/build -j4
+
+%.o: %.c
 	@$(CC) $(CFLAGS) $(HEADS) -o $@ -c $<
 
+%_bonus.o : %_bonus.c
+	@$(CC) $(CFLAGS) $(HEADS) -o $@ -c $<
+	
 clean:
 	@echo "$(GREEN)==========| Cleaning... |==========$(NC)"
-	$(RM) $(OBJS) $(B_OBJS)
+	$(RM) $(OBJS)
+	$(RM) $(B_OBJS)
 	@$(MAKE) -C $(LIBFT) clean
 
 fclean: clean
