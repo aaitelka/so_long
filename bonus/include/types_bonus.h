@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/18 13:51:40 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:05:37 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_parse
 	int	player;
 	int	length;
 	int	collectible;
+	int	enemies;
 }	t_parse;
 
 typedef struct s_map

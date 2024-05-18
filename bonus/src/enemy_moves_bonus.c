@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 21:54:35 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/18 14:21:54 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:47:11 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	animate_enemy(t_game *game)
 	static int	i;
 
 	pos = game->map.enemies_pos;
-	if (!(++i % 4))
+	if (!(++i % DELAY))
 	{
 		while (pos)
 		{
