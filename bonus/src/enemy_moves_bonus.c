@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 21:54:35 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 23:53:12 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 00:56:17 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@ bool	should_mv(t_game *game, t_point *pos, char dest)
 {
 	if (dest == RIGHT)
 	{
-		if (game->map.data[pos->x][pos->y + 1] == 'P' || game->map.data[pos->x][pos->y + 1] == '0')
+		if (game->map.data[pos->x][pos->y + 1] == 'P'
+			|| game->map.data[pos->x][pos->y + 1] == '0')
 			return (true);
 		else
 			return (pos->dir = false, false);
 	}
 	else if (dest == LEFT)
 	{
-		if (game->map.data[pos->x][pos->y - 1] == 'P' || game->map.data[pos->x][pos->y - 1] == '0')
+		if (game->map.data[pos->x][pos->y - 1] == 'P'
+			|| game->map.data[pos->x][pos->y - 1] == '0')
 			return (true);
 		else
 			return (pos->dir = true, false);
@@ -80,15 +82,24 @@ void	animate_enemy(t_game *game)
 	{
 		while (pos)
 		{
-			if (game->map.data[pos->x][pos->y - 1] == 'P' || game->map.data[pos->x][pos->y - 1] == 'P')
+			if (pos->dir && should_mv(game, pos, RIGHT))
 			{
-				ft_printf("You lose\n");
-				mlx_close_window(game->mlx);
-			}
-			else if (pos->dir && should_mv(game, pos, RIGHT))
+				if (game->map.data[pos->x][pos->y + 1] == 'P')
+				{
+					ft_printf("You lose\n");
+					mlx_close_window(game->mlx);
+				}
 				mv_right(game, pos);
+			}
 			else if (!pos->dir && should_mv(game, pos, LEFT))
+			{
+				if (game->map.data[pos->x][pos->y - 1] == 'P')
+				{
+					ft_printf("You lose\n");
+					mlx_close_window(game->mlx);
+				}
 				mv_left(game, pos);
+			}
 			pos = pos->next;
 		}
 	}

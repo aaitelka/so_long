@@ -6,16 +6,11 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:01:49 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 22:44:33 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 01:07:34 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
-
-void	l(void)
-{
-	system("leaks so_long_bonus");
-}
 
 void	start_game(char *av[])
 {
@@ -40,7 +35,6 @@ void	start_game(char *av[])
 
 int	main(int ac, char *av[])
 {
-	// atexit(l);
 	if (ac == 2)
 		start_game(av);
 	else

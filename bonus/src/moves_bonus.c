@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 23:44:52 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 20:53:27 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 00:57:49 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	move_up(t_game *g)
 		mlx_put_string(g->mlx, g->step, 30, 30);
 		free(g->step);
 	}
-	else if (g->map.data[g->map.p_pos.y - 1][g->map.p_pos.x] == DOOR && !(g->map.coins))
+	else if (g->map.data[g->map.p_pos.y - 1][g->map.p_pos.x] == DOOR
+		&& !(g->map.coins))
 		mlx_close_window(g->mlx);
 }
 
@@ -76,7 +77,8 @@ void	move_left(t_game *g)
 		mlx_put_string(g->mlx, g->step, 30, 30);
 		free(g->step);
 	}
-	else if (g->map.data[g->map.p_pos.y][g->map.p_pos.x - 1] == DOOR && !(g->map.coins))
+	else if (g->map.data[g->map.p_pos.y][g->map.p_pos.x - 1] == DOOR
+		&& !(g->map.coins))
 		mlx_close_window(g->mlx);
 }
 
@@ -99,7 +101,8 @@ void	move_down(t_game *g)
 		mlx_put_string(g->mlx, g->step, 30, 30);
 		free(g->step);
 	}
-	else if (g->map.data[g->map.p_pos.y + 1][g->map.p_pos.x] == DOOR && !(g->map.coins))
+	else if (g->map.data[g->map.p_pos.y + 1][g->map.p_pos.x] == DOOR
+		&& !(g->map.coins))
 		mlx_close_window(g->mlx);
 }
 
@@ -122,6 +125,7 @@ void	move_right(t_game *g)
 		mlx_put_string(g->mlx, g->step, 30, 30);
 		free(g->step);
 	}
-	else if (g->map.data[g->map.p_pos.y][g->map.p_pos.x + 1] == DOOR && !(g->map.coins))
+	else if (g->map.data[g->map.p_pos.y][g->map.p_pos.x + 1] == DOOR
+		&& !(g->map.coins))
 		mlx_close_window(g->mlx);
 }
