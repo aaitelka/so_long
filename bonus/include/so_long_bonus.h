@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:00:18 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 20:44:45 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 20:53:06 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include "types_bonus.h"
-/**
+/** 
  *	GAME
 */
 bool	init_game(t_game *game, char *av[]);

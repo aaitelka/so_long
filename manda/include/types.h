@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:25:10 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 19:25:46 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 20:46:50 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@
 # define PLAYER_LEFT "textures/player_left.png"
 # define PLAYER_RIGHT "textures/player_right.png"
 # define TEXTURE_WALL "textures/wall.png"
-# define TEXTURE_COIN "textures/ball.png"
-# define TEXTURE_DOOR "textures/door.png"
+# define TEXTURE_COIN "textures/coin_10.png"
+# define TEXTURE_DOOR "textures/door_1.png"
 # define TEXTURE_GROUND "textures/ground.png"
 /**
  * CALCULATE SIZE OF ANY ARRAY

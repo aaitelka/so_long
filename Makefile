@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/18 20:24:31 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/18 20:52:23 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ $(NAME): $(OBJS)
 
 bonus: libft libmlx $(BONUS)
 
-$(BONUS): $(B_OBJS)
+$(BONUS): $(B_OBJS) ./bonus/include/*.h
 	@echo "$(GREEN)==========| Linking $(BONUS) executable... |==========$(NC)"
 	$(CC) $(CFLAGS) $(B_OBJS) $(LIBS) -o $(BONUS)
 
@@ -72,10 +72,10 @@ libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && \
 	make -C $(LIBMLX)/build -j4
 
-%.o: %.c
+%.o: %.c ./manda/include/*.h
 	@$(CC) $(CFLAGS) $(HEADS) -o $@ -c $<
 
-%_bonus.o : %_bonus.c bonus/include/types_bonus.h
+%_bonus.o : %_bonus.c
 	@$(CC) $(CFLAGS) $(HEADS) -o $@ -c $<
 	
 clean:

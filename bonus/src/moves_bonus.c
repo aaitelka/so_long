@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 23:44:52 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/18 13:38:22 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 20:36:24 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ void	move_up(t_game *g)
 {
 	if (should_move(g, UP))
 	{
-		if (g->map.data[g->map.p_pos.y][g->map.p_pos.x] == 'N')
+		if (g->map.data[g->map.p_pos.y - 1][g->map.p_pos.x] == 'N')
+		{
+			ft_printf("You lose\n");
 			mlx_close_window(g->mlx);
+		}
 		if (g->map.data[g->map.p_pos.y - 1][g->map.p_pos.x] == 'C')
 			g->map.coins--;
 		g->map.data[g->map.p_pos.y][g->map.p_pos.x] = '0';
@@ -63,8 +66,11 @@ void	move_left(t_game *g)
 {
 	if (should_move(g, LEFT))
 	{
-		if (g->map.data[g->map.p_pos.y][g->map.p_pos.x] == 'N')
+		if (g->map.data[g->map.p_pos.y][g->map.p_pos.x - 1] == 'N')
+		{
+			ft_printf("You lose\n");
 			mlx_close_window(g->mlx);
+		}
 		if (g->map.data[g->map.p_pos.y][g->map.p_pos.x - 1] == 'C')
 			g->map.coins--;
 		g->map.data[g->map.p_pos.y][g->map.p_pos.x] = '0';
@@ -88,8 +94,11 @@ void	move_down(t_game *g)
 {
 	if (should_move(g, DOWN))
 	{
-		if (g->map.data[g->map.p_pos.y][g->map.p_pos.x] == 'N')
+		if (g->map.data[g->map.p_pos.y + 1][g->map.p_pos.x] == 'N')
+		{
+			ft_printf("You lose\n");
 			mlx_close_window(g->mlx);
+		}
 		if (g->map.data[g->map.p_pos.y + 1][g->map.p_pos.x] == 'C')
 			g->map.coins--;
 		g->map.data[g->map.p_pos.y][g->map.p_pos.x] = '0';
@@ -113,8 +122,11 @@ void	move_right(t_game *g)
 {
 	if (should_move(g, RIGHT))
 	{
-		if (g->map.data[g->map.p_pos.y][g->map.p_pos.x] == 'N')
+		if (g->map.data[g->map.p_pos.y][g->map.p_pos.x + 1] == 'N')
+		{
+			ft_printf("You lose\n");
 			mlx_close_window(g->mlx);
+		}
 		if (g->map.data[g->map.p_pos.y][g->map.p_pos.x + 1] == 'C')
 			g->map.coins--;
 		g->map.data[g->map.p_pos.y][g->map.p_pos.x] = '0';
