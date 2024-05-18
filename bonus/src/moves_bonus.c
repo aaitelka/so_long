@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 23:44:52 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/18 00:57:49 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 13:38:22 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	move_up(t_game *g)
 		g->step = ft_itoa(++(g->moves));
 		mlx_put_string(g->mlx, g->step, 30, 30);
 		free(g->step);
+		g->map.index = 1;
 	}
 	else if (g->map.data[g->map.p_pos.y - 1][g->map.p_pos.x] == DOOR
 		&& !(g->map.coins))
@@ -76,6 +77,7 @@ void	move_left(t_game *g)
 		g->step = ft_itoa(++(g->moves));
 		mlx_put_string(g->mlx, g->step, 30, 30);
 		free(g->step);
+		g->map.index = 2;
 	}
 	else if (g->map.data[g->map.p_pos.y][g->map.p_pos.x - 1] == DOOR
 		&& !(g->map.coins))
@@ -100,6 +102,7 @@ void	move_down(t_game *g)
 		g->step = ft_itoa(++(g->moves));
 		mlx_put_string(g->mlx, g->step, 30, 30);
 		free(g->step);
+		g->map.index = 0;
 	}
 	else if (g->map.data[g->map.p_pos.y + 1][g->map.p_pos.x] == DOOR
 		&& !(g->map.coins))
@@ -124,6 +127,7 @@ void	move_right(t_game *g)
 		g->step = ft_itoa(++(g->moves));
 		mlx_put_string(g->mlx, g->step, 30, 30);
 		free(g->step);
+		g->map.index = 3;
 	}
 	else if (g->map.data[g->map.p_pos.y][g->map.p_pos.x + 1] == DOOR
 		&& !(g->map.coins))

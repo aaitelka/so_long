@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:13:03 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/05/17 20:36:30 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/05/18 13:37:17 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	init_map(t_map *map, char *filename)
 	map->coins = count_coins(map2d);
 	map->x = (int) ft_strlen(map->data[0]);
 	map->y = 0;
+	map->index = 0;
 	while (map->data[map->y])
 		map->y++;
 }

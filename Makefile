@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 18:52:15 by aaitelka          #+#    #+#              #
-#    Updated: 2024/05/18 02:36:47 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/05/18 13:50:46 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME := so_long
 BONUS := so_long_bonus
 
 HEADS := -I ./manda/include -I ./bonus/include -I $(LIBFT) -I $(LIBMLX)/include
-LIBS := $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -lglfw -ldl -lglfw -pthread -lm -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+LIBS := $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -lglfw -ldl -pthread -lm -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRCS := manda/main.c \
         manda/src/map.c \
@@ -75,7 +75,7 @@ libmlx:
 %.o: %.c
 	@$(CC) $(CFLAGS) $(HEADS) -o $@ -c $<
 
-%_bonus.o : %_bonus.c
+%_bonus.o : %_bonus.c bonus/include/types_bonus.h
 	@$(CC) $(CFLAGS) $(HEADS) -o $@ -c $<
 	
 clean:
